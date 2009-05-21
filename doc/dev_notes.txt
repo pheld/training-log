@@ -1,0 +1,13 @@
+TRAINING LOG
+
+Models
+
+- FitnessSample
+  - Weight (lbs)
+  - Body Fat Percentage
+
+- Activity
+  - Date
+  - Description
+  - Duration
+  - Distance (if applicable)
