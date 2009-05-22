@@ -3,8 +3,6 @@ TRAINING LOG
 Models
 
 - FitnessSample
-  - User ID
-  - Date
   - Weight (lbs)
   - Body Fat Percentage
 
