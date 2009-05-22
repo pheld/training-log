@@ -1,0 +1,28 @@
+<p>
+  <b>Id:</b>
+  <%=h @fitness_sample.id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @fitness_sample.user_id %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%=h @fitness_sample.date %>
+</p>
+
+<p>
+  <b>Weight:</b>
+  <%=h @fitness_sample.weight %>
+</p>
+
+<p>
+  <b>Body fat percentage:</b>
+  <%=h @fitness_sample.body_fat_percentage %>
+</p>
+
+
+<%= link_to 'Edit', edit_fitness_sample_path(@fitness_sample) %> |
+<%= link_to 'Back', fitness_samples_path %>

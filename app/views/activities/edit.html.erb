@@ -1,0 +1,40 @@
+<h1>Editing activity</h1>
+
+<% form_for(@activity) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :id %><br />
+    <%= f.text_field :id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :activity_type_id %><br />
+    <%= f.text_field :activity_type_id %>
+  </p>
+  <p>
+    <%= f.label :date %><br />
+    <%= f.date_select :date %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :duration_hours %><br />
+    <%= f.text_field :duration_hours %>
+  </p>
+  <p>
+    <%= f.label :distance_miles %><br />
+    <%= f.text_field :distance_miles %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @activity %> |
+<%= link_to 'Back', activities_path %>

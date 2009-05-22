@@ -1,0 +1,28 @@
+<h1>Listing fitness_samples</h1>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>User</th>
+    <th>Date</th>
+    <th>Weight</th>
+    <th>Body fat percentage</th>
+  </tr>
+
+<% for fitness_sample in @fitness_samples %>
+  <tr>
+    <td><%=h fitness_sample.id %></td>
+    <td><%=h fitness_sample.user_id %></td>
+    <td><%=h fitness_sample.date %></td>
+    <td><%=h fitness_sample.weight %></td>
+    <td><%=h fitness_sample.body_fat_percentage %></td>
+    <td><%= link_to 'Show', fitness_sample %></td>
+    <td><%= link_to 'Edit', edit_fitness_sample_path(fitness_sample) %></td>
+    <td><%= link_to 'Destroy', fitness_sample, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New fitness_sample', new_fitness_sample_path %>

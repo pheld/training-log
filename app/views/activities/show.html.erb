@@ -1,0 +1,38 @@
+<p>
+  <b>Id:</b>
+  <%=h @activity.id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @activity.user_id %>
+</p>
+
+<p>
+  <b>Activity type:</b>
+  <%=h @activity.activity_type_id %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%=h @activity.date %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @activity.description %>
+</p>
+
+<p>
+  <b>Duration hours:</b>
+  <%=h @activity.duration_hours %>
+</p>
+
+<p>
+  <b>Distance miles:</b>
+  <%=h @activity.distance_miles %>
+</p>
+
+
+<%= link_to 'Edit', edit_activity_path(@activity) %> |
+<%= link_to 'Back', activities_path %>

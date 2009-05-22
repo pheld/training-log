@@ -1,0 +1,32 @@
+<h1>Listing activities</h1>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>User</th>
+    <th>Activity type</th>
+    <th>Date</th>
+    <th>Description</th>
+    <th>Duration hours</th>
+    <th>Distance miles</th>
+  </tr>
+
+<% for activity in @activities %>
+  <tr>
+    <td><%=h activity.id %></td>
+    <td><%=h activity.user_id %></td>
+    <td><%=h activity.activity_type_id %></td>
+    <td><%=h activity.date %></td>
+    <td><%=h activity.description %></td>
+    <td><%=h activity.duration_hours %></td>
+    <td><%=h activity.distance_miles %></td>
+    <td><%= link_to 'Show', activity %></td>
+    <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
+    <td><%= link_to 'Destroy', activity, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New activity', new_activity_path %>
