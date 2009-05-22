@@ -3,11 +3,19 @@ TRAINING LOG
 Models
 
 - FitnessSample
+  - User ID
+  - Date
   - Weight (lbs)
   - Body Fat Percentage
 
 - Activity
+  - User ID
   - Date
   - Description
   - Duration
   - Distance (if applicable)
+
+- User
+  - Login
+  - Password
+  - Is Admin?
