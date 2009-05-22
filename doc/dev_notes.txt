@@ -10,10 +10,16 @@ Models
 
 - Activity
   - User ID
+  - Activity Type ID
   - Date
   - Description
   - Duration
   - Distance (if applicable)
+
+- ActivityType
+  - Activity Type ID
+  - Name
+  - Description
 
 - User
   - Login
