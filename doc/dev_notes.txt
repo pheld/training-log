@@ -16,8 +16,7 @@ Models
   - Distance (if applicable)
 
 - Climb
-  - User ID
-  - Date
+  - Activity ID
   - Description
   - Duration
   - Feet climbed
@@ -28,3 +27,39 @@ Models
   - Login
   - Password
   - Is Admin?
+
+
+
+Controllers
+
+Login controller
+- log in
+
+Home controller
+- admin (if admin)
+- list activities (pagination)
+- create activity
+- edit activity
+- delete activity
+- list fitness samples (pagination)
+- create fitness sample
+- edit fitness sample
+- delete fitness sample
+- list climbs (pagination)
+- create climb
+- edit climb
+- delte climb
+
+Admin controller (if admin)
+- create user
+- list users (pagination)
+- edit user
+- delete user (orphan activities, etc?)
+- create activity type
+- list activity types (pagination)
+- edit activity type
+- delete activity type (replace existing assignments?)
+- list fitness samples (pagination)
+- create fitness sample
+- edit fitness sample
+- delete fitness sample
