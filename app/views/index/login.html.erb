@@ -1,0 +1,10 @@
+<h2>Sign in</h2>
+
+<% form_tag({:controller => 'index', :action => 'login'}, :id => 'user_form_id') do -%>
+  <h4>Sign in</h4>
+  <h5>Username</h5>
+  <p><%= text_field_tag :login, nil %></p>
+  <h5>Password</h5>
+  <p><%= password_field_tag :password, nil %></p>
+  <input id="user_form_submit" name="user_form_submit" type="submit" value="Sign in" />
+<% end -%>

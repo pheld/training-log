@@ -32,10 +32,8 @@ Models
 
 Controllers
 
-Login controller
+Index controller
 - log in
-
-Home controller
 - admin (if admin)
 - list activities (pagination)
 - create activity
