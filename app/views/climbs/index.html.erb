@@ -1,0 +1,32 @@
+<h1>Listing climbs</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Date</th>
+    <th>Description</th>
+    <th>Duration seconds</th>
+    <th>Altitude gained feet</th>
+    <th>Weight pounds</th>
+    <th>Weight of equipment pounds</th>
+  </tr>
+
+<% for climb in @climbs %>
+  <tr>
+    <td><%=h climb.user_id %></td>
+    <td><%=h climb.date %></td>
+    <td><%=h climb.description %></td>
+    <td><%=h climb.duration_seconds %></td>
+    <td><%=h climb.altitude_gained_feet %></td>
+    <td><%=h climb.weight_pounds %></td>
+    <td><%=h climb.weight_of_equipment_pounds %></td>
+    <td><%= link_to 'Show', climb %></td>
+    <td><%= link_to 'Edit', edit_climb_path(climb) %></td>
+    <td><%= link_to 'Destroy', climb, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New climb', new_climb_path %>

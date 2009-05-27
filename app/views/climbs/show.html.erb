@@ -1,0 +1,38 @@
+<p>
+  <b>User:</b>
+  <%=h @climb.user_id %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%=h @climb.date %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @climb.description %>
+</p>
+
+<p>
+  <b>Duration seconds:</b>
+  <%=h @climb.duration_seconds %>
+</p>
+
+<p>
+  <b>Altitude gained feet:</b>
+  <%=h @climb.altitude_gained_feet %>
+</p>
+
+<p>
+  <b>Weight pounds:</b>
+  <%=h @climb.weight_pounds %>
+</p>
+
+<p>
+  <b>Weight of equipment pounds:</b>
+  <%=h @climb.weight_of_equipment_pounds %>
+</p>
+
+
+<%= link_to 'Edit', edit_climb_path(@climb) %> |
+<%= link_to 'Back', climbs_path %>

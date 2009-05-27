@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  date: 2009-05-26
+  description: MyText
+  duration_seconds: 1
+  altitude_gained_feet: 1
+  weight_pounds: 1.5
+  weight_of_equipment_pounds: 1.5
+
+two:
+  user_id: 1
+  date: 2009-05-26
+  description: MyText
+  duration_seconds: 1
+  altitude_gained_feet: 1
+  weight_pounds: 1.5
+  weight_of_equipment_pounds: 1.5

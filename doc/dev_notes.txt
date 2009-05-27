@@ -3,21 +3,26 @@ TRAINING LOG
 Models
 
 - FitnessSample
+  - User ID
+  - Date
   - Weight (lbs)
   - Body Fat Percentage
 
 - Activity
   - User ID
-  - Activity Type ID
   - Date
   - Description
   - Duration
   - Distance (if applicable)
 
-- ActivityType
-  - Activity Type ID
-  - Name
+- Climb
+  - User ID
+  - Date
   - Description
+  - Duration
+  - Feet climbed
+  - Weight (lbs)
+  - Weight of equipment (lbs)
 
 - User
   - Login

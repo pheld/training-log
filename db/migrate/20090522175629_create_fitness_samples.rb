@@ -4,7 +4,7 @@ class CreateFitnessSamples < ActiveRecord::Migration
       t.integer :id
       t.integer :user_id
       t.date :date
-      t.float :weight
+      t.float :weight_pounds
       t.float :body_fat_percentage
 
       t.timestamps
