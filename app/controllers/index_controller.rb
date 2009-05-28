@@ -1,5 +1,13 @@
 class IndexController < ApplicationController
 
+  def index
+    if logged_in?
+      render :template => 'index/index'
+    else
+      redirect_to :controller => 'index', :action => 'login' and return true
+    end
+  end
+
   def login
     if !params[:login].nil? && !params[:password].nil? && session[:errprs].nil?
       self.current_user = User.authenticate(params[:login], params[:password])
@@ -8,6 +16,8 @@ class IndexController < ApplicationController
         flash[:notice] = "Incorrect login or password."
         return
       end
+
+      session[:user_id] = self.current_user.id
     end
 
     if logged_in?
@@ -21,5 +31,7 @@ class IndexController < ApplicationController
 
   def logout
     reset_session
+
+    redirect_to :controller => 'index', :action => 'index' and return true
   end
 end

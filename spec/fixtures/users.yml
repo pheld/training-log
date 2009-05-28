@@ -1,0 +1,5 @@
+pheld:
+  id: 1
+  login: pheld
+  password: passw0rd!
+  is_admin: 0
