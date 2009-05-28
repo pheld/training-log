@@ -1,0 +1,10 @@
+<div id="topNav">
+  <div id="gNav">
+    <% unless current_user.nil? %>
+      <% if current_user.is_admin? %> <!-- If an admin, display the admin link -->
+        <%= link_to 'Administration', :controller => 'admin', :action => 'index' %>
+      <% end %>
+      <%= link_to 'Log Out', :controller => 'index', :action => 'logout' %>
+    <% end %>
+  </div> <!-- end gNav -->
+</div> <!-- end topNav -->
