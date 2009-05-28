@@ -30,10 +30,10 @@ Models
 
 
 
-Controllers
+Controllers/Views
 
-Index controller
-- log in
+Index controller/view
+X log in
 - admin (if admin)
 - list activities (pagination)
 - create activity
@@ -48,7 +48,7 @@ Index controller
 - edit climb
 - delte climb
 
-Admin controller (if admin)
+Admin controller/view (if admin)
 - create user
 - list users (pagination)
 - edit user
