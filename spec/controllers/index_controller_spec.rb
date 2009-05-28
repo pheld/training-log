@@ -19,6 +19,8 @@ describe IndexController do
 
     before(:each) do
       mock_user(:login => 'pheld', :password => 'passw0rd!')
+
+      User.stub!(:authenticate).and_return(mock_user)
     end
 
     it "should login a valid user" do
@@ -28,5 +30,23 @@ describe IndexController do
       response.should redirect_to(:controller => 'index', :action => 'index')
     end
 
+    it "should not login an invalid user" do
+      User.stub!(:authenticate).and_return(nil)
+      post_login(mock_user)
+      flash[:notice].should_not be_nil
+      flash[:notice].should eql("Incorrect login or password.")
+      response.should render_template('index/login')
+    end
+
   end
+
+  describe 'Logout testing' do
+
+    it "should redirect logged out user to the login page" do
+      post :logout
+      response.should redirect_to(:controller => 'index', :action => 'index')
+    end
+
+  end
+
 end
