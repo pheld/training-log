@@ -5,3 +5,4 @@ climb_one:
   altitude_gained_feet: 500
   weight_pounds: 168.7
   weight_of_equipment_pounds: 25.0
+  activity_id: 1

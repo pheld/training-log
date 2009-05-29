@@ -24,6 +24,8 @@ class ActivitiesController < ApplicationController
   # GET /activities/new
   # GET /activities/new.xml
   def new
+    @activity_types = ActivityType.find(:all)
+
     @activity = Activity.new
 
     respond_to do |format|
@@ -34,6 +36,7 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
+    @activity_types = ActivityType.find(:all)
     @activity = Activity.find(params[:id])
   end
 
@@ -41,6 +44,7 @@ class ActivitiesController < ApplicationController
   # POST /activities.xml
   def create
     @activity = Activity.new(params[:activity])
+    @activity.user_id = current_user.id
 
     respond_to do |format|
       if @activity.save

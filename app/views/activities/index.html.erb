@@ -3,7 +3,6 @@
 <table>
   <tr>
     <th>Id</th>
-    <th>User</th>
     <th>Activity type</th>
     <th>Date</th>
     <th>Description</th>
@@ -14,8 +13,7 @@
 <% for activity in @activities %>
   <tr>
     <td><%=h activity.id %></td>
-    <td><%=h activity.user_id %></td>
-    <td><%=h activity.activity_type_id %></td>
+    <td><%=h activity.activity_type.name %></td>
     <td><%=h activity.date %></td>
     <td><%=h activity.description %></td>
     <td><%=h activity.duration_hours %></td>

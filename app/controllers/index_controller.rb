@@ -3,13 +3,15 @@ class IndexController < ApplicationController
   def index
     if logged_in?
       # load stuff for the overview
-#      @activities = Activity.find(:all, :order => 'date DESC')      
-      @activities = Activity.paginate :page => params[:activity_page], :per_page => 5, :order => 'date DESC'
+      
+      # get activities associated with the current user
+      @activities = Activity.paginate_by_user_id current_user.id, :page => params[:activity_page], :per_page => 1, :order => 'date DESC'
 
-      @fitness_samples = FitnessSample.paginate :page => params[:fs_page], :per_page => 5, :order => 'date DESC'
+      # fitness samples associated with the current user
+      @fitness_samples = FitnessSample.paginate_by_user_id current_user.id, :page => params[:fs_page], :per_page => 5, :order => 'date DESC'
 
-
-      @climbs = Climb.paginate :page => params[:climb_page], :per_page => 5, :order => 'id DESC'
+      # get the climbs associated with activities associated with the current user
+      @climbs = Climb.paginate_by_sql "SELECT c.* FROM climbs c, users u, activities a WHERE u.id = 1 AND u.id = a.user_id AND a.id = c.activity_id ORDER BY a.date DESC", :page => params[:climb_page], :per_page => 5
 
       render :template => 'index/index'
     else

@@ -41,6 +41,7 @@ class FitnessSamplesController < ApplicationController
   # POST /fitness_samples.xml
   def create
     @fitness_sample = FitnessSample.new(params[:fitness_sample])
+    @fitness_sample.user_id = current_user.id
 
     respond_to do |format|
       if @fitness_sample.save

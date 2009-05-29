@@ -8,12 +8,8 @@
     <%= f.text_field :id %>
   </p>
   <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
-  </p>
-  <p>
-    <%= f.label :activity_type_id %><br />
-    <%= f.text_field :activity_type_id %>
+    <%= f.label :activity_type %><br />
+    <%= f.collection_select(:activity_type_id, @activity_types, :id, :name) %>
   </p>
   <p>
     <%= f.label :date %><br />

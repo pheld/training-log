@@ -52,7 +52,7 @@ describe IndexController do
   describe 'Home (overview) page testing' do
 
     before(:each) do
-      mock_user(:login => 'pheld', :password => 'passw0rd!')
+      mock_user(:id => 1, :login => 'pheld', :password => 'passw0rd!')
 
       User.stub!(:authenticate).and_return(mock_user)
 
