@@ -3,3 +3,9 @@ pheld:
   login: pheld
   password: passw0rd!
   is_admin: 0
+
+admin:
+  id: 2
+  login: admin
+  password: passw0rd!
+  is_admin: 1

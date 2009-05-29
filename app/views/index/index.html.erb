@@ -1,28 +1,62 @@
-<h2>Welcome, <%= current_user.login %>.</h2>
+<div id="col1">
+  <% unless @activities.nil? %>
+    <table id="gradient-style" summary="Meeting Results">
+      <thead>
+    	  <tr>
+          <th scope="col">Activities</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for activity in @activities %>
+          <tr>
+            <td><%= link_to activity.description, activity %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @activities, :param_name => 'activity_page' %>
+  <% end %>
+  <%= link_to 'New Activity', :controller => 'activities', :action => 'new' %>
+</div> <!-- end col1 -->
 
-<h3>Activities</h3>
-<%= link_to 'New Activity', :controller => 'activities', :action => 'new' %> <br /><br />
-<% unless @activities.nil? %>
-  <% for activity in @activities %>
-    <%= link_to activity.description, activity %><br />
-  <% end %><br />
-  <%= will_paginate @activities, :param_name => 'activity_page' %>
-<% end %>
+<div id="col2">
+  <% unless @fitness_samples.nil? %>
+    <table id="gradient-style" summary="Meeting Results">
+      <thead>
+    	  <tr>
+          <th scope="col">Fitness Samples</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for fitness_sample in @fitness_samples %>
+          <tr>
+            <td><%= link_to "#{fitness_sample.weight_pounds} lbs / #{fitness_sample.body_fat_percentage}%", fitness_sample %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @fitness_samples, :param_name => 'fs_page' %>
+  <% end %>
+  <%= link_to 'New Fitness Sample', :controller => 'fitness_samples', :action => 'new' %> <br /><br />
+</div> <!-- end col2 -->
 
-<h3>Fitness Samples</h3>
-<%= link_to 'New Fitness Sample', :controller => 'fitness_samples', :action => 'new' %> <br /><br />
-<% unless @fitness_samples.nil? %>
-  <% for fitness_sample in @fitness_samples %>
-    <%= link_to "#{fitness_sample.weight_pounds} lbs / #{fitness_sample.body_fat_percentage}%", fitness_sample %> <br />
-  <% end %><br/>
-  <%= will_paginate @fitness_samples, :param_name => 'fs_page' %>
-<% end %>
-
-<h3>Climbs</h3>
-<%= link_to 'New Climb', :controller => 'climbs', :action => 'new' %> <br /><br />
-<% unless @climbs.nil? %>
-  <% for climb in @climbs %>
-    <%= link_to climb.description, climb %><br />
-  <% end %><br />
-  <%= will_paginate @climbs, :param_name => 'climb_page' %>
-<% end %>
+<div id="col3">
+  <% unless @climbs.nil? %>
+    <table id="gradient-style" summary="Meeting Results">
+      <thead>
+    	  <tr>
+          <th scope="col">Climbs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for climb in @climbs %>
+          <tr>
+            <td><%= link_to "[#{climb.activity.description}] #{climb.description}", climb %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @climbs, :param_name => 'climb_page' %>
+  <% end %>
+  <%= link_to 'New Climb', :controller => 'climbs', :action => 'new' %> <br /><br />
+</div> <!-- end col3 -->

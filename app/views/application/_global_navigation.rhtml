@@ -2,7 +2,7 @@
   <div id="gNav">
     <% unless current_user.nil? %>
       <% if current_user.is_admin? %> <!-- If an admin, display the admin link -->
-        <%= link_to 'Administration', :controller => 'admin', :action => 'index' %>
+        <%= link_to 'Administration', :controller => 'administration', :action => 'index' %>
       <% end %>
       <%= link_to 'Home', :controller => 'index', :action => 'index' %>
       <%= link_to 'Log Out', :controller => 'index', :action => 'logout' %>

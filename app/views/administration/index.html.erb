@@ -1,0 +1,17 @@
+<h3>Users</h3>
+<%= link_to 'New User', :controller => 'users', :action => 'new' %><br /><br />
+<% unless @users.nil? %>
+  <% for user in @users %>
+    <%= link_to user.login, user %><br />
+  <% end %><br />
+  <%= will_paginate @users, :param_name => 'user_page' %>
+<% end %>
+
+<h3>Activity Types</h3>
+<%= link_to 'New Activity Type', :controller => 'activity_types', :action => 'new' %><br /><br />
+<% unless @activity_types.nil? %>
+  <% for activity_type in @activity_types %>
+    <%= link_to activity_type.name, activity_type %><br />
+  <% end %><br />
+  <%= will_paginate @activity_types, :param_name => 'at_page' %>
+<% end %>

@@ -1,0 +1,41 @@
+#header
+{
+margin-bottom: 10px;
+}
+
+#col1
+{
+float: left;
+width: 48%;
+margin-left: 3%;
+display: inline;
+}
+
+#col2
+{
+float: left;
+width: 20%;
+margin-left: 3%; }
+
+#col3
+{
+float: left;
+width: 20%;
+margin-left: 3%;
+}
+
+#footer
+{
+clear: both;
+}
+
+h2, p
+{
+margin-left: 7px;
+margin-right: 7px;
+}
+
+h1
+{
+  text-align: center;
+}

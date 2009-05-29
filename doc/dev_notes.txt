@@ -37,27 +37,18 @@ X log in
 X admin (if admin)
 X list activities (pagination)
 X create activity
-- edit activity
-- delete activity
+X edit activity
 X list fitness samples (pagination)
 X create fitness sample
-- edit fitness sample
-- delete fitness sample
+X edit fitness sample
 X list climbs (pagination)
-- create climb
-- edit climb
-- delte climb
+X create climb
+X edit climb
 
 Admin controller/view (if admin)
-- create user
-- list users (pagination)
-- edit user
-- delete user (orphan activities, etc?)
-- create activity type
-- list activity types (pagination)
-- edit activity type
-- delete activity type (replace existing assignments?)
-- list fitness samples (pagination)
-- create fitness sample
-- edit fitness sample
-- delete fitness sample
+X create user
+X list users (pagination)
+X edit user
+X create activity type
+X list activity types (pagination)
+X edit activity type

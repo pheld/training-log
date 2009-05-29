@@ -5,14 +5,20 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'global' %>
+  <%= stylesheet_link_tag 'table-style' %>
 </head>
 <body>
 
   <div id="page">
 
-    <%= render :partial => 'application/global_navigation' %>
+    <div id="header"><h1>Training Log</h1></div>
 
     <%= yield  %>
+
+    <div id="footer">
+      <%= render :partial => 'application/global_navigation' %>
+    </div> <!-- end footer -->
 
   </div> <!-- end page -->
 
