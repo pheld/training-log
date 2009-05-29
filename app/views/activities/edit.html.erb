@@ -3,11 +3,7 @@
 <% form_for(@activity) do |f| %>
   <%= f.error_messages %>
 
-  <p>
-    <%= f.label :id %><br />
-    <%= f.text_field :id %>
-  </p>
-  <p>
+ <p>
     <%= f.label :activity_type %><br />
     <%= f.collection_select(:activity_type_id, @activity_types, :id, :name) %>
   </p>

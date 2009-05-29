@@ -36,11 +36,11 @@ Index controller/view
 X log in
 X admin (if admin)
 X list activities (pagination)
-- create activity
+X create activity
 - edit activity
 - delete activity
 X list fitness samples (pagination)
-- create fitness sample
+X create fitness sample
 - edit fitness sample
 - delete fitness sample
 X list climbs (pagination)

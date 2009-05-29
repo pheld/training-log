@@ -1,25 +1,28 @@
 <h2>Welcome, <%= current_user.login %>.</h2>
 
-<% unless @activities.nil? %>
 <h3>Activities</h3>
+<%= link_to 'New Activity', :controller => 'activities', :action => 'new' %> <br /><br />
+<% unless @activities.nil? %>
   <% for activity in @activities %>
-    <%= link_to activity.description, activity %>
-  <% end %>
+    <%= link_to activity.description, activity %><br />
+  <% end %><br />
   <%= will_paginate @activities, :param_name => 'activity_page' %>
 <% end %>
 
-<% unless @fitness_samples.nil? %>
 <h3>Fitness Samples</h3>
+<%= link_to 'New Fitness Sample', :controller => 'fitness_samples', :action => 'new' %> <br /><br />
+<% unless @fitness_samples.nil? %>
   <% for fitness_sample in @fitness_samples %>
-    <%= link_to "#{fitness_sample.weight_pounds} lbs / #{fitness_sample.body_fat_percentage}%", fitness_sample %>
-  <% end %>
+    <%= link_to "#{fitness_sample.weight_pounds} lbs / #{fitness_sample.body_fat_percentage}%", fitness_sample %> <br />
+  <% end %><br/>
   <%= will_paginate @fitness_samples, :param_name => 'fs_page' %>
 <% end %>
 
-<% unless @climbs.nil? %>
 <h3>Climbs</h3>
+<%= link_to 'New Climb', :controller => 'climbs', :action => 'new' %> <br /><br />
+<% unless @climbs.nil? %>
   <% for climb in @climbs %>
-    <%= link_to climb.description, climb %>
-  <% end %>
+    <%= link_to climb.description, climb %><br />
+  <% end %><br />
   <%= will_paginate @climbs, :param_name => 'climb_page' %>
 <% end %>
