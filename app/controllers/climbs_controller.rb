@@ -24,6 +24,8 @@ class ClimbsController < ApplicationController
   # GET /climbs/new
   # GET /climbs/new.xml
   def new
+    @activities = Activity.find(:all, :order => 'date DESC')
+
     @climb = Climb.new
 
     respond_to do |format|
@@ -34,6 +36,8 @@ class ClimbsController < ApplicationController
 
   # GET /climbs/1/edit
   def edit
+    @activities = Activity.find(:all, :order => 'date DESC')
+
     @climb = Climb.find(params[:id])
   end
 

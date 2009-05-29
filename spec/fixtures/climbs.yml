@@ -1,0 +1,7 @@
+climb_one:
+  id: 1
+  description: climb description 1
+  duration_seconds: 300
+  altitude_gained_feet: 500
+  weight_pounds: 168.7
+  weight_of_equipment_pounds: 25.0

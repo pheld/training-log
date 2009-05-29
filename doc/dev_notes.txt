@@ -34,16 +34,16 @@ Controllers/Views
 
 Index controller/view
 X log in
-- admin (if admin)
-- list activities (pagination)
+X admin (if admin)
+X list activities (pagination)
 - create activity
 - edit activity
 - delete activity
-- list fitness samples (pagination)
+X list fitness samples (pagination)
 - create fitness sample
 - edit fitness sample
 - delete fitness sample
-- list climbs (pagination)
+X list climbs (pagination)
 - create climb
 - edit climb
 - delte climb

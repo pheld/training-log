@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IndexController do
-  fixtures :users
+  fixtures :users, :activities, :fitness_samples, :climbs
 
   before(:each) do
     # nothing for now
@@ -45,6 +45,37 @@ describe IndexController do
     it "should redirect logged out user to the login page" do
       post :logout
       response.should redirect_to(:controller => 'index', :action => 'index')
+    end
+
+  end
+
+  describe 'Home (overview) page testing' do
+
+    before(:each) do
+      mock_user(:login => 'pheld', :password => 'passw0rd!')
+
+      User.stub!(:authenticate).and_return(mock_user)
+
+      post_login(mock_user)
+    end
+
+    it "should fetch activities" do
+      get :index
+
+#      assigns(:activities).should be_an_instance_of(Array)
+      assigns(:activities).should_not be_empty
+    end
+
+    it "should fetch fitness samples" do
+      get :index
+
+      assigns(:fitness_samples).should_not be_empty
+    end 
+
+    it "should fetch climbs" do
+      get :index
+
+      assigns(:climbs).should_not be_empty
     end
 
   end

@@ -1,0 +1,6 @@
+sample_one:
+  id: 1
+  user_id: 1
+  date: 5/2/09
+  weight_pounds: 168.5
+  body_fat_percentage: 10.4

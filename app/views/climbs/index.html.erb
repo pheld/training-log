@@ -2,7 +2,6 @@
 
 <table>
   <tr>
-    <th>User</th>
     <th>Date</th>
     <th>Description</th>
     <th>Duration seconds</th>
@@ -13,8 +12,7 @@
 
 <% for climb in @climbs %>
   <tr>
-    <td><%=h climb.user_id %></td>
-    <td><%=h climb.date %></td>
+    <td><%=h climb.activity.date %></td>
     <td><%=h climb.description %></td>
     <td><%=h climb.duration_seconds %></td>
     <td><%=h climb.altitude_gained_feet %></td>

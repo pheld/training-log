@@ -1,15 +1,13 @@
+<% unless @activities.nil? %>
+
 <h1>New climb</h1>
 
 <% form_for(@climb) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
-  </p>
-  <p>
-    <%= f.label :date %><br />
-    <%= f.date_select :date %>
+    <%= f.label :activity%><br />
+    <%= f.collection_select(:activity_id, @activities, :id, :description) %>
   </p>
   <p>
     <%= f.label :description %><br />
@@ -34,6 +32,8 @@
   <p>
     <%= f.submit "Create" %>
   </p>
+<% end %>
+
 <% end %>
 
 <%= link_to 'Back', climbs_path %>

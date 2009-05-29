@@ -2,6 +2,15 @@ class IndexController < ApplicationController
 
   def index
     if logged_in?
+      # load stuff for the overview
+#      @activities = Activity.find(:all, :order => 'date DESC')      
+      @activities = Activity.paginate :page => params[:activity_page], :per_page => 5, :order => 'date DESC'
+
+      @fitness_samples = FitnessSample.paginate :page => params[:fs_page], :per_page => 5, :order => 'date DESC'
+
+
+      @climbs = Climb.paginate :page => params[:climb_page], :per_page => 5, :order => 'id DESC'
+
       render :template => 'index/index'
     else
       redirect_to :controller => 'index', :action => 'login' and return true

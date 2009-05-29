@@ -1,1 +1,25 @@
 <h2>Welcome, <%= current_user.login %>.</h2>
+
+<% unless @activities.nil? %>
+<h3>Activities</h3>
+  <% for activity in @activities %>
+    <%= link_to activity.description, activity %>
+  <% end %>
+<%= will_paginate @activities %>
+<% end %>
+
+<% unless @fitness_samples.nil? %>
+<h3>Fitness Samples</h3>
+  <% for fitness_sample in @fitness_samples %>
+    <%= link_to "#{fitness_sample.weight_pounds} lbs / #{fitness_sample.body_fat_percentage}%", fitness_sample %>
+  <% end %>
+<%= will_paginate @fitness_samples %>
+<% end %>
+
+<% unless @climbs.nil? %>
+<h3>Climbs</h3>
+  <% for climb in @climbs %>
+    <%= link_to climb.description, climb %>
+  <% end %>
+<%= will_paginate @climbs %>
+<% end %>

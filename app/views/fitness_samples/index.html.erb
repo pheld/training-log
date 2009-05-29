@@ -5,7 +5,7 @@
     <th>Id</th>
     <th>User</th>
     <th>Date</th>
-    <th>Weight</th>
+    <th>Weight (pounds)</th>
     <th>Body fat percentage</th>
   </tr>
 
@@ -14,7 +14,7 @@
     <td><%=h fitness_sample.id %></td>
     <td><%=h fitness_sample.user_id %></td>
     <td><%=h fitness_sample.date %></td>
-    <td><%=h fitness_sample.weight %></td>
+    <td><%=h fitness_sample.weight_pounds %></td>
     <td><%=h fitness_sample.body_fat_percentage %></td>
     <td><%= link_to 'Show', fitness_sample %></td>
     <td><%= link_to 'Edit', edit_fitness_sample_path(fitness_sample) %></td>
