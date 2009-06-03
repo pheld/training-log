@@ -1,7 +1,4 @@
-<p>
-  <b>Id:</b>
-  <%=h @activity.id %>
-</p>
+<div id="header"><h1><%=h @activity.description %></h1></div>
 
 <p>
   <b>Activity type:</b>
@@ -28,6 +25,4 @@
   <%=h @activity.distance_miles %>
 </p>
 
-
-<%= link_to 'Edit', edit_activity_path(@activity) %> |
-<%= link_to 'Back', activities_path %>
+<div id="lNav"><%= link_to 'Edit', edit_activity_path(@activity) %></div>

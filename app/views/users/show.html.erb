@@ -1,3 +1,5 @@
+<div id="header"><h1><%=h @user.login %></h1></div>
+
 <p>
   <b>Login:</b>
   <%=h @user.login %>
@@ -13,6 +15,4 @@
   <%=h @user.is_admin %>
 </p>
 
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div id="lNav"><%= link_to 'Edit', edit_user_path(@user) %></div>

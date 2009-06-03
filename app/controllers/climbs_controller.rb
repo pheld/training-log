@@ -24,7 +24,7 @@ class ClimbsController < ApplicationController
   # GET /climbs/new
   # GET /climbs/new.xml
   def new
-    @activities = Activity.find(:all, :order => 'date DESC')
+    @activities = Activity.find_all_by_user_id(current_user.id, 'date DESC')
 
     @climb = Climb.new
 
@@ -49,7 +49,7 @@ class ClimbsController < ApplicationController
     respond_to do |format|
       if @climb.save
         flash[:notice] = 'Climb was successfully created.'
-        format.html { redirect_to(@climb) }
+        format.html { redirect_to(:controller => 'index', :action => 'index') }
         format.xml  { render :xml => @climb, :status => :created, :location => @climb }
       else
         format.html { render :action => "new" }

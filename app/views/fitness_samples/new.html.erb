@@ -1,4 +1,4 @@
-<h1>New fitness_sample</h1>
+<div id="header"><h1>New Fitness Sample</h1></div>
 
 <% form_for(@fitness_sample) do |f| %>
   <%= f.error_messages %>
@@ -19,5 +19,3 @@
     <%= f.submit "Create" %>
   </p>
 <% end %>
-
-<%= link_to 'Back', fitness_samples_path %>

@@ -1,15 +1,19 @@
-#page
+body
 {
 background: #87B6FE;
+}
+
+#page
+{
 padding: 10px;
 }
 
 #header
 {
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
-#col1
+#summary_col1
 {
 float: left;
 width: 48%;
@@ -17,16 +21,31 @@ margin-left: 3%;
 display: inline;
 }
 
-#col2
+#summary_col2
 {
 float: left;
 width: 20%;
 margin-left: 3%; }
 
-#col3
+#summary_col3
 {
 float: left;
 width: 20%;
+margin-left: 3%;
+}
+
+#admin_col1
+{
+float: left;
+width: 30%;
+margin-left: 3%;
+display: inline;
+}
+
+#admin_col2
+{
+float: left;
+width: 61%;
 margin-left: 3%;
 }
 
@@ -45,4 +64,16 @@ margin-right: 7px;
 h1
 {
   text-align: center;
+}
+
+#gNav
+{
+  font-weight: bolder;
+}
+
+#lNav
+{
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-weight: bolder;
 }

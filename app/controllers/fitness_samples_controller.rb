@@ -46,7 +46,7 @@ class FitnessSamplesController < ApplicationController
     respond_to do |format|
       if @fitness_sample.save
         flash[:notice] = 'FitnessSample was successfully created.'
-        format.html { redirect_to(@fitness_sample) }
+        format.html { redirect_to(:controller => 'index', :action => 'index') }
         format.xml  { render :xml => @fitness_sample, :status => :created, :location => @fitness_sample }
       else
         format.html { render :action => "new" }

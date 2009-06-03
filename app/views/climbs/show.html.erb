@@ -1,3 +1,5 @@
+<div id="header"><h1><%=h @climb.description %></h1></div>
+
 <p>
   <b>Activity:</b>
   <%=h @climb.activity.description %>
@@ -28,6 +30,4 @@
   <%=h @climb.weight_of_equipment_pounds %>
 </p>
 
-
-<%= link_to 'Edit', edit_climb_path(@climb) %> |
-<%= link_to 'Back', climbs_path %>
+<div id="lNav"><%= link_to 'Edit', edit_climb_path(@climb) %></div>

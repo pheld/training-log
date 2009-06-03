@@ -1,4 +1,4 @@
-<h1>New activity_type</h1>
+<div id="header"><h1>New Activity Type</h1></div>
 
 <% form_for(@activity_type) do |f| %>
   <%= f.error_messages %>
@@ -15,5 +15,3 @@
     <%= f.submit "Create" %>
   </p>
 <% end %>
-
-<%= link_to 'Back', activity_types_path %>

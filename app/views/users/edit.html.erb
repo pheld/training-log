@@ -1,4 +1,4 @@
-<h1>Editing user</h1>
+<div id="header"><h1><%=h @user.login %></h1></div>
 
 <% form_for(@user) do |f| %>
   <%= f.error_messages %>
@@ -19,6 +19,3 @@
     <%= f.submit "Update" %>
   </p>
 <% end %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>

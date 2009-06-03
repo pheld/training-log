@@ -1,4 +1,4 @@
-<h1>Editing activity</h1>
+<div id="header"><h1><%=h @activity.description %></h1></div>
 
 <% form_for(@activity) do |f| %>
   <%= f.error_messages %>
@@ -27,6 +27,3 @@
     <%= f.submit "Update" %>
   </p>
 <% end %>
-
-<%= link_to 'Show', @activity %> |
-<%= link_to 'Back', activities_path %>

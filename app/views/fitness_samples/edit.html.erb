@@ -1,4 +1,4 @@
-<h1>Editing fitness_sample</h1>
+<div id="header"><h1>Fitness Sample for <%=h @fitness_sample.date.to_s %></h1></div>
 
 <% form_for(@fitness_sample) do |f| %>
   <%= f.error_messages %>
@@ -19,6 +19,3 @@
     <%= f.submit "Update" %>
   </p>
 <% end %>
-
-<%= link_to 'Show', @fitness_sample %> |
-<%= link_to 'Back', fitness_samples_path %>

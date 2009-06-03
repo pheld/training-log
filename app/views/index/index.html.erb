@@ -1,4 +1,6 @@
-<div id="col1">
+<div id="header"><h1>Training Log Summary</h1></div>
+
+<div id="summary_col1">
   <% unless @activities.nil? %>
     <table id="gradient-style" summary="Meeting Results">
       <thead>
@@ -9,17 +11,19 @@
       <tbody>
         <% for activity in @activities %>
           <tr>
-            <td><%= link_to activity.description, activity %></td>
+            <td><%= link_to "[#{activity.date.to_s}] #{activity.description}", activity %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
     <%= will_paginate @activities, :param_name => 'activity_page' %>
   <% end %>
-  <%= link_to 'New Activity', :controller => 'activities', :action => 'new' %>
+  <div id="lNav"
+    <%= link_to 'New Activity', :controller => 'activities', :action => 'new' %>
+  </div> <!-- end lNav -->
 </div> <!-- end col1 -->
 
-<div id="col2">
+<div id="summary_col2">
   <% unless @fitness_samples.nil? %>
     <table id="gradient-style" summary="Meeting Results">
       <thead>
@@ -37,10 +41,12 @@
     </table>
     <%= will_paginate @fitness_samples, :param_name => 'fs_page' %>
   <% end %>
-  <%= link_to 'New Fitness Sample', :controller => 'fitness_samples', :action => 'new' %> <br /><br />
+  <div id="lNav">
+    <%= link_to 'New Fitness Sample', :controller => 'fitness_samples', :action => 'new' %> <br /><br />
+  </div> <!-- end lNav -->
 </div> <!-- end col2 -->
 
-<div id="col3">
+<div id="summary_col3">
   <% unless @climbs.nil? %>
     <table id="gradient-style" summary="Meeting Results">
       <thead>
@@ -58,5 +64,7 @@
     </table>
     <%= will_paginate @climbs, :param_name => 'climb_page' %>
   <% end %>
-  <%= link_to 'New Climb', :controller => 'climbs', :action => 'new' %> <br /><br />
+  <div id="lNav">
+    <%= link_to 'New Climb', :controller => 'climbs', :action => 'new' %> <br /><br />
+  </div> <!-- end lNav -->
 </div> <!-- end col3 -->

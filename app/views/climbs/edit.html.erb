@@ -1,4 +1,4 @@
-<h1>Editing climb</h1>
+<div id="header"><h1><%=h @climb.description %></h1><div>
 
 <% form_for(@climb) do |f| %>
   <%= f.error_messages %>
@@ -31,6 +31,3 @@
     <%= f.submit "Update" %>
   </p>
 <% end %>
-
-<%= link_to 'Show', @climb %> |
-<%= link_to 'Back', climbs_path %>

@@ -1,4 +1,6 @@
-<div id="col1">
+<div id="header"><h1>Administration</h1></div>
+
+<div id="admin_col1">
     <% unless @users.nil? %>
     <table id="gradient-style">
       <thead>
@@ -16,10 +18,12 @@
     </table>
     <%= will_paginate @users, :param_name => 'user_page' %>
   <% end %>
-  <%= link_to 'New User', :controller => 'users', :action => 'new' %>
+  <div id="lNav">
+    <%= link_to 'New User', :controller => 'users', :action => 'new' %>
+  </div> <!-- end lNav -->
 </div> <!-- end col1 -->
 
-<div id="col2">
+<div id="admin_col2">
   <% unless @activity_types.nil? %>
     <table id="gradient-style">
       <thead>
@@ -37,5 +41,7 @@
     </table>
     <%= will_paginate @activity_types, :param_name => 'at_page' %>
   <% end %>
-  <%= link_to 'New Activity Type', :controller => 'activity_types', :action => 'new' %> <br /><br />
+  <div id="lNav">
+    <%= link_to 'New Activity Type', :controller => 'activity_types', :action => 'new' %> <br /><br />
+  </div> <!-- end lNav -->
 </div> <!-- end col1 -->

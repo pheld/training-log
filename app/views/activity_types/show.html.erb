@@ -1,18 +1,8 @@
-<p>
-  <b>Id:</b>
-  <%=h @activity_type.id %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%=h @activity_type.name %>
-</p>
+<div id="header"><h1><%=h @activity_type.name %></h1></div>
 
 <p>
   <b>Description:</b>
   <%=h @activity_type.description %>
 </p>
 
-
-<%= link_to 'Edit', edit_activity_type_path(@activity_type) %> |
-<%= link_to 'Back', activity_types_path %>
+<div id="lNav"><%= link_to 'Edit', edit_activity_type_path(@activity_type) %></div>
