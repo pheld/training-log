@@ -1,17 +1,41 @@
-<h3>Users</h3>
-<%= link_to 'New User', :controller => 'users', :action => 'new' %><br /><br />
-<% unless @users.nil? %>
-  <% for user in @users %>
-    <%= link_to user.login, user %><br />
-  <% end %><br />
-  <%= will_paginate @users, :param_name => 'user_page' %>
-<% end %>
+<div id="col1">
+    <% unless @users.nil? %>
+    <table id="gradient-style">
+      <thead>
+    	  <tr>
+          <th scope="col">Users</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for user in @users %>
+          <tr>
+            <td><%= link_to user.login, user %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @users, :param_name => 'user_page' %>
+  <% end %>
+  <%= link_to 'New User', :controller => 'users', :action => 'new' %>
+</div> <!-- end col1 -->
 
-<h3>Activity Types</h3>
-<%= link_to 'New Activity Type', :controller => 'activity_types', :action => 'new' %><br /><br />
-<% unless @activity_types.nil? %>
-  <% for activity_type in @activity_types %>
-    <%= link_to activity_type.name, activity_type %><br />
-  <% end %><br />
-  <%= will_paginate @activity_types, :param_name => 'at_page' %>
-<% end %>
+<div id="col2">
+  <% unless @activity_types.nil? %>
+    <table id="gradient-style">
+      <thead>
+    	  <tr>
+          <th scope="col">Activity Types</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for activity_type in @activity_types %>
+          <tr>
+            <td><%= link_to activity_type.name, activity_type %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @activity_types, :param_name => 'at_page' %>
+  <% end %>
+  <%= link_to 'New Activity Type', :controller => 'activity_types', :action => 'new' %> <br /><br />
+</div> <!-- end col1 -->

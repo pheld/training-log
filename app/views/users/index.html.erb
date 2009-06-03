@@ -2,7 +2,6 @@
 
 <table>
   <tr>
-    <th>Id</th>
     <th>Login</th>
     <th>Password</th>
     <th>Is admin</th>
@@ -10,7 +9,6 @@
 
 <% for user in @users %>
   <tr>
-    <td><%=h user.id %></td>
     <td><%=h user.login %></td>
     <td><%=h user.password %></td>
     <td><%=h user.is_admin %></td>

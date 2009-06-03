@@ -30,7 +30,7 @@
       <tbody>
         <% for fitness_sample in @fitness_samples %>
           <tr>
-            <td><%= link_to "#{fitness_sample.weight_pounds} lbs / #{fitness_sample.body_fat_percentage}%", fitness_sample %></td>
+            <td><%= link_to "[#{fitness_sample.date.to_s}] #{fitness_sample.weight_pounds} lbs, #{fitness_sample.body_fat_percentage}%", fitness_sample %></td>
           </tr>
         <% end %>
       </tbody>
