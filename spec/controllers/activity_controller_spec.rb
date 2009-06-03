@@ -1,11 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe ActivityTypesController do
-  fixtures :users
-
+describe ActivitiesController do
+  fixtures :users, :activity_types
+  
   before(:each) do
     # pretend to be logged in
     ApplicationController.stub!(:logged_in?).and_return(mock_user)
+    ApplicationController.stub!(:current_user).and_return(users(:pheld))
   end
 
   def mock_user(stubs = {})
@@ -16,10 +17,11 @@ describe ActivityTypesController do
     @activity_type ||= mock_model(ActivityType, stubs).as_null_object
   end
 
- describe 'ActivityType creation testing' do
+ describe 'Activity creation testing' do
     
-    it "should forward to the administration page after creating a new activity type" do
-      post :create, {:name => 'test_activity_type', :description => 'fake description'}
+    it "should forward to the home page after creating a new activity" do
+      puts "current user: #{ApplicationController.current_user.login}"
+      post :create, {:activity_type_id => 1, :date => '5/1/09', :description => 'test_activity', :duration_hours => 3.4, :distance_miles => 60.2}
       response.should redirect_to(:controller => 'administration', :action => 'index')
     end
 

@@ -45,7 +45,7 @@ class ActivityTypesController < ApplicationController
     respond_to do |format|
       if @activity_type.save
         flash[:notice] = 'ActivityType was successfully created.'
-        format.html { redirect_to(@activity_type) }
+        format.html { redirect_to(:controller => 'administration', :action => 'index') }
         format.xml  { render :xml => @activity_type, :status => :created, :location => @activity_type }
       else
         format.html { render :action => "new" }
