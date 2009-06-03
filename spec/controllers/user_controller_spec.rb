@@ -5,7 +5,7 @@ describe UsersController do
 
   before(:each) do
     # pretend to be logged in
-    ApplicationController.stub!(:logged_in?).and_return(mock_user)
+    ApplicationController.stub!(:logged_in?).and_return(true)
   end
 
   def mock_user(stubs = {})
@@ -15,7 +15,7 @@ describe UsersController do
  describe 'User creation testing' do
     
     it "should forward to the administration page after creating a new user" do
-      post :create, {:logn=> 'test_user_login', :password => 'passw0rd!', :is_admin => 0}
+      post :create, {:login => 'test_user_login', :password => 'passw0rd!', :is_admin => 0}
       response.should redirect_to(:controller => 'administration', :action => 'index')
     end
 
