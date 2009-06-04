@@ -30,4 +30,7 @@
   <%=h @climb.weight_of_equipment_pounds %>
 </p>
 
-<div id="lNav"><%= link_to 'Edit', edit_climb_path(@climb) %></div>
+<div id="lNav">
+  <%= link_to 'Edit', edit_climb_path(@climb) %>
+  <%= link_to 'Delete', @activity, :confirm => "Are you sure?", :method => :delete %>
+</div> <!-- end lNav -->

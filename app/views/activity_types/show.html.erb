@@ -5,4 +5,7 @@
   <%=h @activity_type.description %>
 </p>
 
-<div id="lNav"><%= link_to 'Edit', edit_activity_type_path(@activity_type) %></div>
+<div id="lNav">
+  <%= link_to 'Edit', edit_activity_type_path(@activity_type) %>
+  <%= link_to 'Delete', @activity, :confirm => "Are you sure?", :method => :delete %>
+</div> <!-- end lNav -->

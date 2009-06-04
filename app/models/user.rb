@@ -14,4 +14,8 @@ class User < ActiveRecord::Base
     user = find :first, :conditions => { :login => login }
     user && ( user.password = password ) ? user : nil
   end
+
+  def self.per_page
+    10
+  end
 end

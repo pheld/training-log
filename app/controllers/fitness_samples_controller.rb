@@ -79,7 +79,7 @@ class FitnessSamplesController < ApplicationController
     @fitness_sample.destroy
 
     respond_to do |format|
-      format.html { redirect_to(fitness_samples_url) }
+      format.html { redirect_to(:controller => 'index', :action => 'index') }
       format.xml  { head :ok }
     end
   end

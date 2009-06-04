@@ -78,7 +78,7 @@ class ActivityTypesController < ApplicationController
     @activity_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to(activity_types_url) }
+      format.html { redirect_to(:controller => 'administration', :action => 'index') }
       format.xml  { head :ok }
     end
   end

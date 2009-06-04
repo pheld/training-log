@@ -25,4 +25,7 @@
   <%=h @activity.distance_miles %>
 </p>
 
-<div id="lNav"><%= link_to 'Edit', edit_activity_path(@activity) %></div>
+<div id="lNav">
+  <%= link_to 'Edit', edit_activity_path(@activity) %>
+  <%= link_to 'Delete', @activity, :confirm => "Are you sure?", :method => :delete %>
+</div> <!-- end lNav -->

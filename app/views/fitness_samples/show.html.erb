@@ -15,4 +15,7 @@
   <%=h @fitness_sample.body_fat_percentage %>
 </p>
 
-<div id="lNav"><%= link_to 'Edit', edit_fitness_sample_path(@fitness_sample) %></div>
+<div id="lNav">
+  <%= link_to 'Edit', edit_fitness_sample_path(@fitness_sample) %>
+  <%= link_to 'Delete', @activity, :confirm => "Are you sure?", :method => :delete %>
+</div> <!-- end lNav -->

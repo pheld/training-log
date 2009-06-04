@@ -42,6 +42,20 @@ describe Activity do
     activity = @valid_activity
     activity.duration_hours = nil
     activity.should_not be_valid
-  end 
+  end
+
+  it "should not be valid with negative duration_hours" do
+    activity = @valid_activity
+    activity.should be_valid
+    activity.duration_hours = -1.3
+    activity.should_not be_valid
+  end
+
+  it "should not be valid with negative distance_miles" do
+    activity = @valid_activity
+    activity.should be_valid
+    activity.distance_miles = -0.1
+    activity.should_not be_valid
+  end
 
 end

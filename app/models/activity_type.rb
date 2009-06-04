@@ -7,6 +7,6 @@ class ActivityType < ActiveRecord::Base
 
   # will-paginate
   def self.per_page
-    5
+   10 
   end
 end
