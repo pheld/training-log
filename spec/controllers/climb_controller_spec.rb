@@ -16,7 +16,7 @@ describe ClimbsController do
  describe 'Climb creation testing' do
     
     it "should forward to the home page after creating a new climb" do
-      post :create, :climb => {:description => 'test_climb', :duration_seconds => 2250, :altitude_gained_feet => 1860, :weight_pounds => 168, :weight_of_equipment_pounds => 25}
+      post :create, :climb => {:activity_id => activities(:mercer_island).id, :description => 'test_climb', :duration_seconds => 2250, :altitude_gained_feet => 1860, :weight_pounds => 168, :weight_of_equipment_pounds => 25}
       response.should redirect_to(:controller => 'index', :action => 'index')
     end
 

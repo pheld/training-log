@@ -19,7 +19,7 @@ describe ActivityTypesController do
  describe 'ActivityType creation testing' do
     
     it "should forward to the administration page after creating a new activity type" do
-      post :create, {:name => 'test_activity_type', :description => 'fake description'}
+      post :create, :activity_type => {:name => 'test_activity_type', :description => 'fake description'}
       response.should redirect_to(:controller => 'administration', :action => 'index')
     end
 

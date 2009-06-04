@@ -4,6 +4,8 @@ class Activity < ActiveRecord::Base
 
   named_scope :by_date, :order => 'date DESC'
 
+  validates_presence_of :description, :user_id, :activity_type_id, :date, :duration_hours 
+
   # will-paginate
   def self.per_page
     5

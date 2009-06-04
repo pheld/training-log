@@ -44,6 +44,7 @@ class ClimbsController < ApplicationController
   # POST /climbs
   # POST /climbs.xml
   def create
+    @activities = Activity.find_all_by_user_id(current_user.id, 'date DESC')
     @climb = Climb.new(params[:climb])
 
     respond_to do |format|

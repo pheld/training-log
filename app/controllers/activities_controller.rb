@@ -43,6 +43,7 @@ class ActivitiesController < ApplicationController
   # POST /activities
   # POST /activities.xml
   def create
+    @activity_types = ActivityType.find(:all)
     @activity = Activity.new(params[:activity])
     @activity.user_id = current_user.id
 
