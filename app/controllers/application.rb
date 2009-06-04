@@ -27,4 +27,9 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user ? user.id : nil
     @current_user = user || false
   end
+
+  def InitR
+    @r = RSRuby.instance
+    return @r
+  end
 end

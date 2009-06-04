@@ -45,4 +45,17 @@ class IndexController < ApplicationController
 
     redirect_to :controller => 'index', :action => 'index' and return true
   end
+
+  def show_image
+    @r = InitR()
+    @d = @r.rnorm(1000)
+    @l = @r.range(-4,4,@d)
+    @r.png "/tmp/plot.png"
+    @r.par(:bg => "cornsilk")
+    @r.hist(@d, :range => @l, :col => "lavender", :main => "My Plot")
+    @r.eval_R("dev.off()")
+    @g = File.open("/tmp/plot.png", "rb") {|@f| @f.read}
+    send_data @g, :type => "image/png", :disposition => 'inline'
+  end
+
 end
