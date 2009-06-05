@@ -28,8 +28,4 @@ class ApplicationController < ActionController::Base
     @current_user = user || false
   end
 
-  def InitR
-    @r = RSRuby.instance
-    return @r
-  end
 end
