@@ -52,3 +52,9 @@ X edit user
 X create activity type
 X list activity types (pagination)
 X edit activity type
+
+
+- graph helper lib?
+  - moving average calculation
+
+- graphing libs

@@ -76,6 +76,9 @@ Rails::Initializer.run do |config|
   # Configure WillPaginate
   config.gem "mislav-will_paginate", :lib => 'will_paginate', :source => 'http://gems.github.com'
 
+  # Configure Gruff
+  config.gem "gruff"
+
 end
 
 require "will_paginate"
