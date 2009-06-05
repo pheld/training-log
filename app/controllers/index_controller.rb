@@ -48,14 +48,14 @@ class IndexController < ApplicationController
 
   def show_image
     @r = InitR()
-    @d = @r.rnorm(1000)
-    @l = @r.range(-4,4,@d)
+    @data = @r.rnorm(1000)
+    @data_range = @r.range(-4,4,@data)
     @r.png "/tmp/plot.png"
     @r.par(:bg => "cornsilk")
-    @r.hist(@d, :range => @l, :col => "lavender", :main => "My Plot")
+    @r.hist(@data, :range => @data_range, :col => "lavender", :main => "My Plot")
     @r.eval_R("dev.off()")
-    @g = File.open("/tmp/plot.png", "rb") {|@f| @f.read}
-    send_data @g, :type => "image/png", :disposition => 'inline'
+    @graphic = File.open("/tmp/plot.png", "rb") {|@file| @file.read}
+    send_data @graphic, :type => "image/png", :disposition => 'inline'
   end
 
 end
