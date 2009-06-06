@@ -46,17 +46,47 @@ class IndexController < ApplicationController
     redirect_to :controller => 'index', :action => 'index' and return true
   end
 
-  def graphy
-    # make some data
-    data_sets = []
-    data_set = {:title => "Wowee Wowzsers", :data_points => [[1,14], [2,7], [3,19], [4,22], [5,8]]}
-    data_sets << data_set
-    data_set_2 = {:title => "Bowzer FRowsers", :data_points => [[1,4], [2,19], [3,22], [4,3], [5,30]]}
-    data_sets << data_set_2
-
+  def graph_weight
     ghelper = GraphHelper.new
 
+    # get the fitness sample data sets for this user
+    @fitness_samples = FitnessSample.find_all_by_user_id current_user.id, :order => 'date ASC'
+    weight_data_set = ghelper.fitness_samples_to_weight_data_set(@fitness_samples)
+    data_sets = []
+    data_sets << weight_data_set
+
     graph = ghelper.generate_graph(data_sets)
+
+    # WILL this work?  Really?  Rails will just DO this?
+    send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
+  end
+
+  def graph_body_fat_percentage
+    ghelper = GraphHelper.new
+
+    # get the fitness sample data sets for this user
+    @fitness_samples = FitnessSample.find_all_by_user_id current_user.id, :order => 'date ASC'
+    bf_percent_data_set = ghelper.fitness_samples_to_body_fat_percentage_data_set(@fitness_samples)
+    data_sets = []
+    data_sets << bf_percent_data_set
+
+    graph = ghelper.generate_graph(data_sets)
+
+    # WILL this work?  Really?  Rails will just DO this?
+    send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
+  end
+
+  def graph_hours
+    ghelper = GraphHelper.new
+
+    # get the fitness sample data sets for this user
+    @fitness_samples = FitnessSample.find_all_by_user_id current_user.id, :order => 'date ASC'
+    total_hours_data_set = ghelper.fitness_samples_to_seven_day_hours_total_data_set(@fitness_samples)
+    data_sets = []
+    data_sets << total_hours_data_set
+
+    graph = ghelper.generate_graph(data_sets)
+    graph.minimum_value = 0
 
     # WILL this work?  Really?  Rails will just DO this?
     send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')

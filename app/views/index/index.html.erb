@@ -1,9 +1,5 @@
 <div id="header"><h1>Training Log Summary</h1></div>
 
-<div id="graph">
-  <%= image_tag(url_for(:controller => 'index', :action => 'graphy'), :style => "graph") %>
-</div> <!-- end graph -->
-
 <div id="summary_col1">
   <% unless @activities.nil? %>
     <table id="gradient-style" summary="Meeting Results">
@@ -72,3 +68,25 @@
     <%= link_to 'New Climb', :controller => 'climbs', :action => 'new' %> <br /><br />
   </div> <!-- end lNav -->
 </div> <!-- end col3 -->
+
+<div id"lNav" style="text-align: center;">
+  <a href="javascript:ReverseDisplay('weight_graph_div')">show/hide weight graph</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:ReverseDisplay('bfp_graph_div')">show/hide body fat % graph</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:ReverseDisplay('hours_graph_div')">show/hide aerobic hours graph</a>
+</div> <!-- end lNav -->
+
+<div id="graph">
+  <div id="weight_graph_div" style="display:none;">
+    <%= image_tag(url_for(:controller => 'index', :action => 'graph_weight'), :style => "graph") %>
+  </div>
+</div> <!-- end graph -->
+
+<div id="graph">
+  <div id="bfp_graph_div" style="display:none;">
+    <%= image_tag(url_for(:controller => 'index', :action => 'graph_body_fat_percentage'), :style => "graph") %>
+  </div>
+</div> <!-- end graph -->
+
+<div id="graph">
+  <div id="hours_graph_div" style="display:none;">
+    <%= image_tag(url_for(:controller => 'index', :action => 'graph_hours'), :style => "graph") %>
+  </div>
+</div> <!-- end graph -->
