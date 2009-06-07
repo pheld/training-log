@@ -1,8 +1,53 @@
 <div id="header"><h1>Training Log Summary</h1></div>
 
+
 <div id="summary_col1">
+  <div id="graph">
+    <!--  <div id="weight_graph_div" style="display:none;"> -->
+      <%= image_tag(url_for(:controller => 'index', :action => 'graph_weight'), :style => "graph") %>
+    <!-- </div> -->
+  </div> <!-- end graph -->
+
+  <div id="graph">
+    <!-- <div id="bfp_graph_div" style="display:none;"> -->
+      <%= image_tag(url_for(:controller => 'index', :action => 'graph_body_fat_percentage'), :style => "graph") %>
+    <!--  </div> -->
+  </div> <!-- end graph -->
+
+  <div id="graph">
+    <!-- <div id="hours_graph_div" style="display:none;"> -->
+      <%= image_tag(url_for(:controller => 'index', :action => 'graph_hours'), :style => "graph") %>
+    <!-- </div> -->
+  </div> <!-- end graph -->
+</div> <!-- end col1 -->
+
+<div id="summary_col2">
+
+  <!-- Fitness Samples -->
+  <% unless @fitness_samples.nil? %>
+    <table id="gradient-style">
+      <thead>
+    	  <tr>
+          <th scope="col">Fitness Samples</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for fitness_sample in @fitness_samples %>
+          <tr>
+            <td><%= link_to "[#{fitness_sample.date.to_s}] #{fitness_sample.weight_pounds} lbs, #{fitness_sample.body_fat_percentage}%", fitness_sample %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @fitness_samples, :param_name => 'fs_page' %>
+  <% end %>
+  <div id="lNav">
+    <%= link_to 'New Fitness Sample', :controller => 'fitness_samples', :action => 'new' %>
+  </div> <!-- end lNav -->
+
+  <!-- Activities -->
   <% unless @activities.nil? %>
-    <table id="gradient-style" summary="Meeting Results">
+    <table id="gradient-style">
       <thead>
     	  <tr>
           <th scope="col">Activities</th>
@@ -21,32 +66,8 @@
   <div id="lNav"
     <%= link_to 'New Activity', :controller => 'activities', :action => 'new' %>
   </div> <!-- end lNav -->
-</div> <!-- end col1 -->
 
-<div id="summary_col2">
-  <% unless @fitness_samples.nil? %>
-    <table id="gradient-style" summary="Meeting Results">
-      <thead>
-    	  <tr>
-          <th scope="col">Fitness Samples</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for fitness_sample in @fitness_samples %>
-          <tr>
-            <td><%= link_to "[#{fitness_sample.date.to_s}] #{fitness_sample.weight_pounds} lbs, #{fitness_sample.body_fat_percentage}%", fitness_sample %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <%= will_paginate @fitness_samples, :param_name => 'fs_page' %>
-  <% end %>
-  <div id="lNav">
-    <%= link_to 'New Fitness Sample', :controller => 'fitness_samples', :action => 'new' %> <br /><br />
-  </div> <!-- end lNav -->
-</div> <!-- end col2 -->
-
-<div id="summary_col3">
+  <!-- Climbs -->
   <% unless @climbs.nil? %>
     <table id="gradient-style" summary="Meeting Results">
       <thead>
@@ -67,26 +88,4 @@
   <div id="lNav">
     <%= link_to 'New Climb', :controller => 'climbs', :action => 'new' %> <br /><br />
   </div> <!-- end lNav -->
-</div> <!-- end col3 -->
-
-<div id"lNav" style="text-align: center;">
-  <a href="javascript:ReverseDisplay('weight_graph_div')">show/hide weight graph</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:ReverseDisplay('bfp_graph_div')">show/hide body fat % graph</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:ReverseDisplay('hours_graph_div')">show/hide aerobic hours graph</a>
-</div> <!-- end lNav -->
-
-<div id="graph">
-  <div id="weight_graph_div" style="display:none;">
-    <%= image_tag(url_for(:controller => 'index', :action => 'graph_weight'), :style => "graph") %>
-  </div>
-</div> <!-- end graph -->
-
-<div id="graph">
-  <div id="bfp_graph_div" style="display:none;">
-    <%= image_tag(url_for(:controller => 'index', :action => 'graph_body_fat_percentage'), :style => "graph") %>
-  </div>
-</div> <!-- end graph -->
-
-<div id="graph">
-  <div id="hours_graph_div" style="display:none;">
-    <%= image_tag(url_for(:controller => 'index', :action => 'graph_hours'), :style => "graph") %>
-  </div>
-</div> <!-- end graph -->
+</div> <!-- end col2 -->

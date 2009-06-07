@@ -7,7 +7,7 @@ class GraphHelper
     max_value = 0
 
     # set up the graph
-    graph = Gruff::Line.new('800x400')
+    graph = Gruff::Line.new('600x250')
 #    graph.title = "Top #{@number_of_popular.to_s} Artists"
 
     data_sets.each do |data_set|
@@ -93,5 +93,54 @@ class GraphHelper
 
     hours
   end
+
+  def fitness_samples_to_seven_day_weight_average_data_set(fitness_samples)
+    points = []
+
+    fitness_samples.each do |fitness_sample|
+      points << [ fitness_sample.date, fitness_sample_to_seven_day_weight_average(fitness_sample) ]
+    end
+    
+    data_set = {:title => "Preceding Week Average Weight", :data_points => points}
+  end
+
+  def fitness_sample_to_seven_day_weight_average(fitness_sample)
+    start_date = fitness_sample.date - 7
+
+    fitness_samples = FitnessSample.find(:all, :conditions => "(date <= '#{fitness_sample.date.to_s}') && (date > '#{start_date.to_s}')")
+
+    total_weight = 0
+    fitness_samples.each do |fitness_sample|
+      total_weight = total_weight + fitness_sample.weight_pounds unless fitness_sample.weight_pounds.nil?
+    end
+    average_weight = total_weight / fitness_samples.length
+
+    average_weight 
+  end
+
+  def fitness_samples_to_seven_day_bfp_average_data_set(fitness_samples)
+    points = []
+
+    fitness_samples.each do |fitness_sample|
+      points << [ fitness_sample.date, fitness_sample_to_seven_day_bfp_average(fitness_sample) ]
+    end
+    
+    data_set = {:title => "Preceding Week Average Body Fat %", :data_points => points}
+  end
+
+  def fitness_sample_to_seven_day_bfp_average(fitness_sample)
+    start_date = fitness_sample.date - 7
+
+    fitness_samples = FitnessSample.find(:all, :conditions => "(date <= '#{fitness_sample.date.to_s}') && (date > '#{start_date.to_s}')")
+
+    total_bfp = 0
+    fitness_samples.each do |fitness_sample|
+      total_bfp = total_bfp + fitness_sample.body_fat_percentage unless fitness_sample.body_fat_percentage.nil?
+    end
+    average_bfp = total_bfp / fitness_samples.length
+
+    average_bfp
+  end
+
 
 end

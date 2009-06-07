@@ -55,6 +55,7 @@ X edit activity type
 
 
 - graph helper lib?
-  - moving average calculation
+  X moving average calculation
+  X previous 7 days hours calculation
 
-- graphing libs
+X graphing libs
