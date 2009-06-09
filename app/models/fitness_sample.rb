@@ -19,4 +19,15 @@ class FitnessSample < ActiveRecord::Base
       errors.add_to_base("Must belong to a valid user") unless !User.find(self.user_id).nil?
     end
   end
+
+  def self.first_date_by_user(user_id)
+    first = self.find(:first, :conditions => "user_id = #{user_id.to_s}", :order => "date ASC")
+    first.date
+  end
+
+  def self.last_date_by_user(user_id)
+    last = self.find(:last, :conditions => "user_id = #{user_id.to_s}", :order => "date ASC")
+    last.date
+  end
+
 end

@@ -59,24 +59,25 @@ class IndexController < ApplicationController
 
     graph = ghelper.generate_graph(data_sets)
 
-    # WILL this work?  Really?  Rails will just DO this?
     send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
   end
 
   def graph_body_fat_percentage
     ghelper = GraphHelper.new
 
+    puts first_date
+    puts last_date
+
     # get the fitness sample data sets for this user
     @fitness_samples = FitnessSample.find_all_by_user_id current_user.id, :order => 'date ASC'
-    bf_percent_data_set = ghelper.fitness_samples_to_body_fat_percentage_data_set(@fitness_samples)
-    average_bf_percent_data_set = ghelper.fitness_samples_to_seven_day_bfp_average_data_set(@fitness_samples)
+    bf_percent_data_set = ghelper.fitness_samples_to_body_fat_percentage_data_set(@fitness_samples, first_date, last_date)
+#    average_bf_percent_data_set = ghelper.fitness_samples_to_seven_day_bfp_average_data_set(@fitness_samples, first_date, last_date)
     data_sets = []
     data_sets << bf_percent_data_set
-    data_sets << average_bf_percent_data_set
+#    data_sets << average_bf_percent_data_set
 
-    graph = ghelper.generate_graph(data_sets)
+    graph = ghelper.generate_graph(data_sets, first_date, last_date)
 
-    # WILL this work?  Really?  Rails will just DO this?
     send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
   end
 
@@ -92,8 +93,23 @@ class IndexController < ApplicationController
     graph = ghelper.generate_graph(data_sets)
     graph.minimum_value = 0
 
-    # WILL this work?  Really?  Rails will just DO this?
     send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
+  end
+
+  protected
+
+  def first_date
+    first_a_date = Activity.first_date_by_user(current_user.id)
+    first_fs_date = FitnessSample.first_date_by_user(current_user.id)
+
+    first_date = first_a_date <= first_fs_date ? first_a_date : first_fs_date
+  end
+
+  def last_date
+    last_a_date = Activity.last_date_by_user(current_user.id)
+    last_fs_date = FitnessSample.last_date_by_user(current_user.id)
+
+    last_date = last_a_date >= last_fs_date ? last_a_date : last_fs_date
   end
 
 end

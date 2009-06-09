@@ -12,4 +12,14 @@ class Activity < ActiveRecord::Base
   def self.per_page
     5
   end
+
+  def self.first_date_by_user(user_id)
+    first = self.find(:first, :conditions => "user_id = #{user_id.to_s}", :order => "date ASC")
+    first.date
+  end
+
+  def self.last_date_by_user(user_id)
+    last = self.find(:last, :conditions => "user_id = #{user_id.to_s}", :order => "date ASC")
+    last.date
+  end
 end
