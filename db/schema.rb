@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090527050922) do
+ActiveRecord::Schema.define(:version => 20090609075641) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(:version => 20090527050922) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "activities", ["date"], :name => "index_activities_on_date"
+  add_index "activities", ["user_id"], :name => "index_activities_on_user_id"
 
   create_table "activity_types", :force => true do |t|
     t.string   "name"
@@ -40,6 +43,11 @@ ActiveRecord::Schema.define(:version => 20090527050922) do
     t.integer  "activity_id"
   end
 
+  create_table "data_files", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "fitness_samples", :force => true do |t|
     t.integer  "user_id"
     t.date     "date"
@@ -48,6 +56,9 @@ ActiveRecord::Schema.define(:version => 20090527050922) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "fitness_samples", ["date"], :name => "index_fitness_samples_on_date"
+  add_index "fitness_samples", ["user_id"], :name => "index_fitness_samples_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "login"
