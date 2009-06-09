@@ -19,7 +19,7 @@ class GraphHelper
       labels = {}
       @index = 0
       data_set[:data_points].each do |item|
-        labels[@index] = item[0].to_s
+        # labels[@index] = item[0].to_s
         @index += 1
 
         # update max value for y-axis scaling
@@ -37,7 +37,9 @@ class GraphHelper
         end
  
       end
-      graph.labels = labels
+      
+      # graph.labels = labels
+      graph.labels = labels_for_five_points(data_set[:data_points])
 
     end
 
@@ -45,10 +47,28 @@ class GraphHelper
     graph.maximum_value = (max_value + (0.1 * max_value)).round
     graph.minimum_value = (min_value - (0.1 * max_value)).round
 
-#    graph.write("top_artists.png")
- 
     # return the graph, most likely to be blobbed inline 
     return graph  
+  end
+
+  def labels_for_five_points(data_points)
+    labels = {}
+
+    # populate the first 4 labels
+    (1..4).each do |number|
+      index_number = (data_points.length / 5) * number
+      labels[index_number] = label_from_data_point(data_points[index_number])
+    end
+
+    # do the last
+    index_number = data_points.length - 1
+    labels[index_number] = label_from_data_point(data_points[index_number])
+
+    labels
+  end
+
+  def label_from_data_point(data_point)
+    label = "#{data_point[0].month.to_s}/#{data_point[0].mday.to_s}/#{data_point[0].year.to_s[2..3]}"
   end
 
   def fitness_samples_to_weight_data_set(fitness_samples)
