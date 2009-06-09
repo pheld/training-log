@@ -4,11 +4,23 @@
 <div id="summary_col1">
 
   <div id="graph">
+    <!--  <div id="weight_graph_div" style="display:none;"> -->
+      <%= image_tag(url_for(:controller => 'index', :action => 'graph_weight'), :style => "graph") %>
+    <!-- </div> -->
+  </div> <!-- end graph -->
+
+  <div id="graph">
     <!-- <div id="bfp_graph_div" style="display:none;"> -->
       <%= image_tag(url_for(:controller => 'index', :action => 'graph_body_fat_percentage'), :style => "graph") %>
     <!--  </div> -->
   </div> <!-- end graph -->
 
+  <div id="graph">
+    <!-- <div id="hours_graph_div" style="display:none;"> -->
+      <%= image_tag(url_for(:controller => 'index', :action => 'graph_hours'), :style => "graph") %>
+    <!-- </div> -->
+  </div> <!-- end graph -->
+  
 </div> <!-- end col1 -->
 
 <div id="summary_col2">

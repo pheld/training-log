@@ -51,13 +51,13 @@ class IndexController < ApplicationController
 
     # get the fitness sample data sets for this user
     @fitness_samples = FitnessSample.find_all_by_user_id current_user.id, :order => 'date ASC'
-    weight_data_set = ghelper.fitness_samples_to_weight_data_set(@fitness_samples)
-    average_weight_data_set = ghelper.fitness_samples_to_seven_day_weight_average_data_set(@fitness_samples)
+    weight_data_set = ghelper.fitness_samples_to_weight_data_set(@fitness_samples, first_date, last_date)
+    average_weight_data_set = ghelper.fitness_samples_to_seven_day_weight_average_data_set(@fitness_samples, first_date, last_date)
     data_sets = []
     data_sets << weight_data_set
     data_sets << average_weight_data_set
 
-    graph = ghelper.generate_graph(data_sets)
+    graph = ghelper.generate_graph(data_sets, first_date, last_date)
 
     send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
   end
@@ -71,10 +71,10 @@ class IndexController < ApplicationController
     # get the fitness sample data sets for this user
     @fitness_samples = FitnessSample.find_all_by_user_id current_user.id, :order => 'date ASC'
     bf_percent_data_set = ghelper.fitness_samples_to_body_fat_percentage_data_set(@fitness_samples, first_date, last_date)
-#    average_bf_percent_data_set = ghelper.fitness_samples_to_seven_day_bfp_average_data_set(@fitness_samples, first_date, last_date)
+    average_bf_percent_data_set = ghelper.fitness_samples_to_seven_day_bfp_average_data_set(@fitness_samples, first_date, last_date)
     data_sets = []
     data_sets << bf_percent_data_set
-#    data_sets << average_bf_percent_data_set
+    data_sets << average_bf_percent_data_set
 
     graph = ghelper.generate_graph(data_sets, first_date, last_date)
 
@@ -86,11 +86,11 @@ class IndexController < ApplicationController
 
     # get the fitness sample data sets for this user
     @fitness_samples = FitnessSample.find_all_by_user_id current_user.id, :order => 'date ASC'
-    total_hours_data_set = ghelper.fitness_samples_to_seven_day_hours_total_data_set(@fitness_samples)
+    total_hours_data_set = ghelper.fitness_samples_to_seven_day_hours_total_data_set(@fitness_samples, first_date, last_date)
     data_sets = []
     data_sets << total_hours_data_set
 
-    graph = ghelper.generate_graph(data_sets)
+    graph = ghelper.generate_graph(data_sets, first_date, last_date)
     graph.minimum_value = 0
 
     send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
