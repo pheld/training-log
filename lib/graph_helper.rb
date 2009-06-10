@@ -91,21 +91,21 @@ class GraphHelper
     data_set = {:title => "Body Fat %", :data_points => points}
   end
 
-  def fitness_samples_to_seven_day_hours_total_data_set(fitness_samples, first_date, last_date)
+  def activities_to_seven_day_hours_total_data_set(activities, first_date, last_date)
     # need every date from first to last so graphs line up and are to time scale
     points = initialize_date_hash(first_date, last_date)
 
-    fitness_samples.each do |fitness_sample|
-      points[fitness_sample.date] = fitness_sample_get_previous_weeks_total_hours(fitness_sample)
+    activities.each do |activity|
+      points[activity.date] = activity_get_previous_weeks_total_hours(activity)
     end
     
     data_set = {:title => "Preceding Week Aerobic Hours", :data_points => points}
   end
 
-  def fitness_sample_get_previous_weeks_total_hours(fitness_sample)
-    start_date = fitness_sample.date - 7
+  def activity_get_previous_weeks_total_hours(activity)
+    start_date = activity.date - 7
 
-    activities = Activity.find(:all, :conditions => "(date <= '#{fitness_sample.date.to_s}') && (date > '#{start_date.to_s}')")
+    activities = Activity.find(:all, :conditions => "(user_id = #{activity.user_id}) && (date <= '#{activity.date.to_s}') && (date > '#{start_date.to_s}')")
 
     hours = 0
     activities.each do |activity|
@@ -129,7 +129,7 @@ class GraphHelper
   def fitness_sample_to_seven_day_weight_average(fitness_sample)
     start_date = fitness_sample.date - 7
 
-    fitness_samples = FitnessSample.find(:all, :conditions => "(date <= '#{fitness_sample.date.to_s}') && (date > '#{start_date.to_s}')")
+    fitness_samples = FitnessSample.find(:all, :conditions => "(user_id = #{fitness_sample.user_id}) && (date <= '#{fitness_sample.date.to_s}') && (date > '#{start_date.to_s}')")
 
     total_weight = 0
     fitness_samples.each do |fitness_sample|
@@ -154,7 +154,7 @@ class GraphHelper
   def fitness_sample_to_seven_day_bfp_average(fitness_sample)
     start_date = fitness_sample.date - 7
 
-    fitness_samples = FitnessSample.find(:all, :conditions => "(date <= '#{fitness_sample.date.to_s}') && (date > '#{start_date.to_s}')")
+    fitness_samples = FitnessSample.find(:all, :conditions => "(user_id = #{fitness_sample.user_id}) && (date <= '#{fitness_sample.date.to_s}') && (date > '#{start_date.to_s}')")
 
     total_bfp = 0
     fitness_samples.each do |fitness_sample|

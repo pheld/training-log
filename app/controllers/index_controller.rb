@@ -77,6 +77,7 @@ class IndexController < ApplicationController
     data_sets << average_bf_percent_data_set
 
     graph = ghelper.generate_graph(data_sets, first_date, last_date)
+    graph.minimum_value = 0
 
     send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
   end
@@ -85,8 +86,8 @@ class IndexController < ApplicationController
     ghelper = GraphHelper.new
 
     # get the fitness sample data sets for this user
-    @fitness_samples = FitnessSample.find_all_by_user_id current_user.id, :order => 'date ASC'
-    total_hours_data_set = ghelper.fitness_samples_to_seven_day_hours_total_data_set(@fitness_samples, first_date, last_date)
+    @activities = Activity.find_all_by_user_id current_user.id, :order => 'date ASC'
+    total_hours_data_set = ghelper.activities_to_seven_day_hours_total_data_set(@activities, first_date, last_date)
     data_sets = []
     data_sets << total_hours_data_set
 

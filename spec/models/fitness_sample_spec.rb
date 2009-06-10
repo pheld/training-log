@@ -56,4 +56,28 @@ describe FitnessSample do
     fitness_sample.should_not be_valid
   end
 
+  it "should not be valid with a repeated date for a given user" do
+    fs = fitness_samples(:sample_one)
+    fs2 = FitnessSample.new
+    fs2.user_id = 1
+    fs2.date = Date.parse("5/3/09")
+    fs2.weight_pounds = 172.3
+    fs2.body_fat_percentage = 11.3
+    fs2.should be_valid
+    fs2.date = fs.date
+    fs2.should_not be_valid
+  end
+
+  it "should be valid with a repeated date for a different user" do
+    fs = fitness_samples(:sample_one)
+    fs2 = FitnessSample.new
+    fs2.user_id = 2
+    fs2.date = Date.parse("5/3/09")
+    fs2.weight_pounds = 172.3
+    fs2.body_fat_percentage = 11.3
+    fs2.should be_valid
+    fs2.date = fs.date
+    fs2.should be_valid
+  end
+
 end

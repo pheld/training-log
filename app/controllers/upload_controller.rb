@@ -5,17 +5,21 @@ class UploadController < ApplicationController
   end
 
   def processActivitiesFile
-#    begin
+    begin
       added = DataFile.processActivities(params[:upload], current_user.id)
       render :text => "added #{added.to_s} activities"
-#    rescue Exception => e
-#      render :text => "Error processing file: #{e.message}"
-#    end
+    rescue Exception => e
+      render :text => "Error processing file: #{e.message}"
+    end
   end
 
   def processFitnessSamplesFile
-    post = DataFile.processFitnessSamples(params[:upload])
-    render :text => post[1].to_s
+    begin
+      added = DataFile.processFitnessSamples(params[:upload], current_user.id)
+      render :text => "added #{added.to_s} fitness samples"
+    rescue Exception => e
+      render :text => "Error processing file: #{e.message}"
+    end
   end
 
 end
