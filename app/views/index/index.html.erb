@@ -1,5 +1,8 @@
 <div id="header"><h1>Training Log Summary</h1></div>
 
+<% if flash[:message] %>
+  <div id="flash_message"><%= flash[:message] %></div>
+<% end %>  <!-- end flash message -->
 
 <div id="summary_col1">
 

@@ -30,6 +30,16 @@
   <%=h @climb.weight_of_equipment_pounds %>
 </p>
 
+<p>
+  <b>Average power:</b>
+  <%=h sprintf("%.2f", @climb.avg_power) %> watts
+</p>
+
+<p>
+  <b>Power-to-weight ratio:</b>
+  <%=h sprintf("%.2f", @climb.power_to_weight) %> w/kg
+</p>
+
 <div id="lNav">
   <%= link_to 'Edit', edit_climb_path(@climb) %>
   <%= link_to 'Delete', @activity, :confirm => "Are you sure?", :method => :delete %>

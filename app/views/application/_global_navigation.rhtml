@@ -1,5 +1,5 @@
   <% unless current_user.nil? %>
     <div id="gNav">
-      <%= link_to 'Training Log Summary', :controller => 'index', :action => 'index' %>&nbsp;&nbsp;|&nbsp;&nbsp;<% if current_user.is_admin? %><%= link_to 'Admin', :controller => 'administration', :action => 'index' %>&nbsp;&nbsp;|&nbsp;&nbsp;<% end %><%= link_to 'Log Out', :controller => 'index', :action => 'logout' %>
+    <%= link_to 'Training Log Summary', :controller => 'index', :action => 'index' %>&nbsp;&nbsp;|&nbsp;&nbsp;<%= link_to 'Upload CSVs', :controller => 'upload', :action => 'index' %>&nbsp;&nbsp;|&nbsp;&nbsp;<% if current_user.is_admin? %><%= link_to 'Admin', :controller => 'administration', :action => 'index' %>&nbsp;&nbsp;|&nbsp;&nbsp;<% end %><%= link_to 'Log Out', :controller => 'index', :action => 'logout' %>
     </div> <!-- end gNav -->
   <% end %>

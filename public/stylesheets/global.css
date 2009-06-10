@@ -76,6 +76,16 @@ h1
   text-align: center;
 }
 
+#flash_message
+{
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: larger;
+  font: bold;
+  color: red;
+}
+
 #gNav
 {
   font-weight: bolder;

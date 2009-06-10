@@ -1,0 +1,15 @@
+<div id="header"><h1>CSV Upload</h1></div>
+
+<% form_tag ({:action => 'processActivitiesFile'},
+  :multipart => true) do %>
+    <p><b><label for="processActivitiesFile">Select Activities File</label>:</b>&nbsp;
+<%= file_field 'upload', 'datafile' %>
+<%= submit_tag "Upload Activities" %></p>
+<% end %>
+
+<% form_tag ({:action => 'processFitnessSamplesFile'},
+  :multipart => true) do %>
+    <p><b><label for="processFitnessSamplesFile">Select Fitness Samples File</label>:</b>
+<%= file_field 'upload', 'datafile' %>
+<%= submit_tag "Upload Fitness Samples" %></p>
+<% end %>
