@@ -47,8 +47,8 @@ class GraphHelper
     end
 
     # set y-axis max and min values
-    graph.maximum_value = (max_value + (0.1 * max_value)).round
-    graph.minimum_value = (min_value - (0.1 * max_value)).round
+    graph.maximum_value = max_value.round
+    graph.minimum_value = min_value.round
 
     # return the graph, most likely to be blobbed inline 
     return graph  
@@ -123,11 +123,11 @@ class GraphHelper
       points[fitness_sample.date] = fitness_sample_to_seven_day_weight_average(fitness_sample)
     end
     
-    data_set = {:title => "Preceding Week Average Weight", :data_points => points}
+    data_set = {:title => "Preceding 14 Days Average Weight", :data_points => points}
   end
 
   def fitness_sample_to_seven_day_weight_average(fitness_sample)
-    start_date = fitness_sample.date - 7
+    start_date = fitness_sample.date - 14
 
     fitness_samples = FitnessSample.find(:all, :conditions => "(user_id = #{fitness_sample.user_id}) && (date <= '#{fitness_sample.date.to_s}') && (date > '#{start_date.to_s}')")
 
@@ -148,11 +148,11 @@ class GraphHelper
       points[fitness_sample.date] = fitness_sample_to_seven_day_bfp_average(fitness_sample)
     end
     
-    data_set = {:title => "Preceding Week Average Body Fat %", :data_points => points}
+    data_set = {:title => "Preceding 14 Days Average Body Fat %", :data_points => points}
   end
 
   def fitness_sample_to_seven_day_bfp_average(fitness_sample)
-    start_date = fitness_sample.date - 7
+    start_date = fitness_sample.date - 14
 
     fitness_samples = FitnessSample.find(:all, :conditions => "(user_id = #{fitness_sample.user_id}) && (date <= '#{fitness_sample.date.to_s}') && (date > '#{start_date.to_s}')")
 
