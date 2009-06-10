@@ -1,6 +1,7 @@
 class Activity < ActiveRecord::Base
   belongs_to :user
   belongs_to :activity_type
+  has_many :climb, :dependent => :destroy
 
   named_scope :by_date, :order => 'date DESC'
 

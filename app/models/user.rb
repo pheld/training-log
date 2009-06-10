@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :activities
-  has_many :fitness_samples
-  has_many :climbs
+  has_many :activities, :dependent => :destroy
+  has_many :fitness_samples, :dependent => :destroy
 
   named_scope :by_login, :order => 'login ASC'
 
