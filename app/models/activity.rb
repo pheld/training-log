@@ -16,7 +16,8 @@ class Activity < ActiveRecord::Base
 
   def self.first_date_by_user(user_id)
     first = self.find(:first, :conditions => "user_id = #{user_id.to_s}", :order => "date ASC")
-    first.date
+    first_datetime = first.date.to_datetime
+    first_datetime > 1.year.ago ? first_datetime : 1.year.ago
   end
 
   def self.last_date_by_user(user_id)

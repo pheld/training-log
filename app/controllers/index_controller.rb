@@ -1,4 +1,8 @@
 class IndexController < ApplicationController
+#  caches_action :graph_weight, :graph_body_fat_percentage, :graph_hours
+  caches_page :graph_weight
+  caches_page :graph_body_fat_percentage
+  caches_page :graph_hours
 
   def index
     if logged_in?
@@ -53,7 +57,8 @@ class IndexController < ApplicationController
     @fitness_samples = FitnessSample.find_all_by_user_id current_user.id, :order => 'date ASC'
     if @fitness_samples.length > 0
       weight_data_set = ghelper.fitness_samples_to_weight_data_set(@fitness_samples, first_date, last_date)
-      average_weight_data_set = ghelper.fitness_samples_to_seven_day_weight_average_data_set(@fitness_samples, first_date, last_date)
+      # average_weight_data_set = ghelper.fitness_samples_to_seven_day_weight_average_data_set(@fitness_samples, first_date, last_date)
+      average_weight_data_set = ghelper.fitness_samples_to_fourteen_sample_weight_average_data_set(@fitness_samples, first_date, last_date)
       data_sets = []
       data_sets << average_weight_data_set
       data_sets << weight_data_set
@@ -73,7 +78,8 @@ class IndexController < ApplicationController
     @fitness_samples = FitnessSample.find_all_by_user_id current_user.id, :order => 'date ASC'
     if @fitness_samples.length > 0
       bf_percent_data_set = ghelper.fitness_samples_to_body_fat_percentage_data_set(@fitness_samples, first_date, last_date)
-      average_bf_percent_data_set = ghelper.fitness_samples_to_seven_day_bfp_average_data_set(@fitness_samples, first_date, last_date)
+      # average_bf_percent_data_set = ghelper.fitness_samples_to_seven_day_bfp_average_data_set(@fitness_samples, first_date, last_date)
+      average_bf_percent_data_set = ghelper.fitness_samples_to_fourteen_sample_bfp_average_data_set(@fitness_samples, first_date, last_date)
       data_sets = []
       data_sets << average_bf_percent_data_set
       data_sets << bf_percent_data_set

@@ -91,15 +91,43 @@ class GraphHelper
     data_set = {:title => "Body Fat %", :data_points => points}
   end
 
+#  def activities_to_seven_day_hours_total_data_set(activities, first_date, last_date)
+#    # need every date from first to last so graphs line up and are to time scale
+#    points = initialize_date_hash(first_date, last_date)
+#
+#    activities.each do |activity|
+#      points[activity.date] = activity_get_previous_weeks_total_hours(activity)
+#    end
+#    
+#    data_set = {:title => "Preceding Week Aerobic Hours", :data_points => points}
+#  end
+
   def activities_to_seven_day_hours_total_data_set(activities, first_date, last_date)
     # need every date from first to last so graphs line up and are to time scale
     points = initialize_date_hash(first_date, last_date)
 
-    activities.each do |activity|
-      points[activity.date] = activity_get_previous_weeks_total_hours(activity)
+    unless (activities.length < 7)
+      # start at the 7th sample, so we have something to average
+      6.upto(activities.length - 1) { |average_index|
+        average_date = activities[average_index].date
+
+        hours_sum = 0.0
+
+        # sum the last 7 samples' hours
+        (average_index - 6).upto(average_index) { |sub_average_index|
+          activity = activities[sub_average_index]
+
+          unless activity.date < (average_date - 7.days)
+            hours_sum = hours_sum + activity.duration_hours unless activity.duration_hours.nil?
+          end
+        }
+
+        points[average_date] = hours_sum
+      }
     end
     
     data_set = {:title => "Preceding Week Aerobic Hours", :data_points => points}
+
   end
 
   def activity_get_previous_weeks_total_hours(activity)
@@ -126,6 +154,27 @@ class GraphHelper
     data_set = {:title => "Preceding 14 Days Average Weight", :data_points => points}
   end
 
+  def fitness_samples_to_fourteen_sample_weight_average_data_set(fitness_samples, first_date, last_date)
+    # need every date from first to last so graphs line up and are to time scale
+    points = initialize_date_hash(first_date, last_date)
+
+    unless (fitness_samples.length < 14)
+      # start at the 14th sample, so we have something to average
+      13.upto(fitness_samples.length - 1) { |average_index|
+        weight_sum = 0.0
+
+        # sum the last 14 samples' weights
+        (average_index - 13).upto(average_index) { |sub_average_index|
+          weight_sum = weight_sum + fitness_samples[sub_average_index].weight_pounds unless fitness_samples[sub_average_index].weight_pounds.nil?
+        }
+
+        points[fitness_samples[average_index].date] = weight_sum / 14.0
+      }
+    end
+    
+    data_set = {:title => "Preceding 14 Samples Average Weight", :data_points => points}
+  end
+
   def fitness_sample_to_seven_day_weight_average(fitness_sample)
     start_date = fitness_sample.date - 14
 
@@ -149,6 +198,27 @@ class GraphHelper
     end
     
     data_set = {:title => "Preceding 14 Days Average Body Fat %", :data_points => points}
+  end
+
+  def fitness_samples_to_fourteen_sample_bfp_average_data_set(fitness_samples, first_date, last_date)
+    # need every date from first to last so graphs line up and are to time scale
+    points = initialize_date_hash(first_date, last_date)
+
+    unless (fitness_samples.length < 14)
+      # start at the 14th sample, so we have something to average
+      13.upto(fitness_samples.length - 1) { |average_index|
+        bfp_sum = 0.0
+
+        # sum the last 14 samples' weights
+        (average_index - 13).upto(average_index) { |sub_average_index|
+          bfp_sum = bfp_sum + fitness_samples[sub_average_index].body_fat_percentage unless fitness_samples[sub_average_index].body_fat_percentage.nil?
+        }
+
+        points[fitness_samples[average_index].date] = bfp_sum / 14.0
+      }
+    end
+    
+    data_set = {:title => "Preceding 14 Samples Average Body Fat %", :data_points => points}
   end
 
   def fitness_sample_to_seven_day_bfp_average(fitness_sample)
