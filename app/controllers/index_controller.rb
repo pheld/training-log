@@ -65,7 +65,13 @@ class IndexController < ApplicationController
 
       graph = ghelper.generate_graph(data_sets, first_date, last_date)
 
-      send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
+      # write the file so it can be cached by the server
+      File.open("public/images/weight_user#{current_user.id}.jpg", 'w') {|f| f.write(graph.to_blob) }
+      
+      # send the file
+      send_file("public/images/weight_user#{current_user.id}.jpg", :disposition => 'inline', :type => 'images/jpg')
+
+      # send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
     else
       send_file('public/images/zubaz-stallion.jpg', :disposition => 'inline', :type => 'image/jpeg')
     end
@@ -86,7 +92,13 @@ class IndexController < ApplicationController
 
       graph = ghelper.generate_graph(data_sets, first_date, last_date)
 
-      send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
+      # write the file so it can be cached by the server
+      File.open("public/images/bfp_user#{current_user.id}.jpg", 'w') {|f| f.write(graph.to_blob) }
+      
+      # send the file
+      send_file("public/images/bfp_user#{current_user.id}.jpg", :disposition => 'inline', :type => 'images/jpg')
+
+      # send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
     else
       send_file('public/images/zubaz-mesh-mullet.png', :disposition => 'inline', :type => 'image/png')
     end
@@ -105,7 +117,13 @@ class IndexController < ApplicationController
       graph = ghelper.generate_graph(data_sets, first_date, last_date)
       graph.minimum_value = 0
 
-      send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
+      # write the file so it can be cached by the server
+      File.open("public/images/hours_user#{current_user.id}.jpg", 'w') {|f| f.write(graph.to_blob) }
+      
+      # send the file
+      send_file("public/images/hours_user#{current_user.id}.jpg", :disposition => 'inline', :type => 'images/jpg')
+
+      # send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
     else
       send_file('public/images/zubaz-suit.jpg', :disposition => 'inline', :type => 'image/jpeg')
     end

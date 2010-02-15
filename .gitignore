@@ -5,3 +5,6 @@ doc/api
 doc/app
 db/*.sqlite3
 *.swp
+public/images/bfp*
+public/images/weight*
+public/images/hours*
