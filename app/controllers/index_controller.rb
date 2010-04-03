@@ -1,13 +1,9 @@
 class IndexController < ApplicationController
-#  caches_action :graph_weight, :graph_body_fat_percentage, :graph_hours
-  caches_page :graph_weight
-  caches_page :graph_body_fat_percentage
-  caches_page :graph_hours
 
   def index
     if logged_in?
       # load stuff for the overview
-      
+      @overview_graph = OverviewGraph.new(current_user)
       # get activities associated with the current user
       @activities = Activity.paginate_by_user_id current_user.id, :page => params[:activity_page], :per_page => Activity.per_page, :order => 'date DESC'
 
@@ -49,110 +45,4 @@ class IndexController < ApplicationController
 
     redirect_to :controller => 'index', :action => 'index' and return true
   end
-
-  def graph_weight
-    ghelper = GraphHelper.new
-
-    # get the fitness sample data sets for this user
-    @fitness_samples = FitnessSample.find_all_by_user_id current_user.id, :order => 'date ASC'
-    if @fitness_samples.length > 0
-      weight_data_set = ghelper.fitness_samples_to_weight_data_set(@fitness_samples, first_date, last_date)
-      # average_weight_data_set = ghelper.fitness_samples_to_seven_day_weight_average_data_set(@fitness_samples, first_date, last_date)
-      average_weight_data_set = ghelper.fitness_samples_to_fourteen_sample_weight_average_data_set(@fitness_samples, first_date, last_date)
-      data_sets = []
-      data_sets << average_weight_data_set
-      data_sets << weight_data_set
-
-      graph = ghelper.generate_graph(data_sets, first_date, last_date)
-
-      # write the file so it can be cached by the server
-      File.open("public/images/weight_user#{current_user.id}.jpg", 'w') {|f| f.write(graph.to_blob) }
-      
-      # send the file
-      send_file("public/images/weight_user#{current_user.id}.jpg", :disposition => 'inline', :type => 'images/jpg')
-
-      # send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
-    else
-      send_file('public/images/zubaz-stallion.jpg', :disposition => 'inline', :type => 'image/jpeg')
-    end
-  end
-
-  def graph_body_fat_percentage
-    ghelper = GraphHelper.new
-
-    # get the fitness sample data sets for this user
-    @fitness_samples = FitnessSample.find_all_by_user_id current_user.id, :order => 'date ASC'
-    if @fitness_samples.length > 0
-      bf_percent_data_set = ghelper.fitness_samples_to_body_fat_percentage_data_set(@fitness_samples, first_date, last_date)
-      # average_bf_percent_data_set = ghelper.fitness_samples_to_seven_day_bfp_average_data_set(@fitness_samples, first_date, last_date)
-      average_bf_percent_data_set = ghelper.fitness_samples_to_fourteen_sample_bfp_average_data_set(@fitness_samples, first_date, last_date)
-      data_sets = []
-      data_sets << average_bf_percent_data_set
-      data_sets << bf_percent_data_set
-
-      graph = ghelper.generate_graph(data_sets, first_date, last_date)
-
-      # write the file so it can be cached by the server
-      File.open("public/images/bfp_user#{current_user.id}.jpg", 'w') {|f| f.write(graph.to_blob) }
-      
-      # send the file
-      send_file("public/images/bfp_user#{current_user.id}.jpg", :disposition => 'inline', :type => 'images/jpg')
-
-      # send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
-    else
-      send_file('public/images/zubaz-mesh-mullet.png', :disposition => 'inline', :type => 'image/png')
-    end
-  end
-
-  def graph_hours
-    ghelper = GraphHelper.new
-
-    # get the fitness sample data sets for this user
-    @activities = Activity.find_all_by_user_id current_user.id, :order => 'date ASC'
-    if @activities.length > 0
-      total_hours_data_set = ghelper.activities_to_seven_day_hours_total_data_set(@activities, first_date, last_date)
-      data_sets = []
-      data_sets << total_hours_data_set
-
-      graph = ghelper.generate_graph(data_sets, first_date, last_date)
-      graph.minimum_value = 0
-
-      # write the file so it can be cached by the server
-      File.open("public/images/hours_user#{current_user.id}.jpg", 'w') {|f| f.write(graph.to_blob) }
-      
-      # send the file
-      send_file("public/images/hours_user#{current_user.id}.jpg", :disposition => 'inline', :type => 'images/jpg')
-
-      # send_data(graph.to_blob, :disposition => 'inline', :type => 'image/png', :filename => 'arbitraryfilename.png')
-    else
-      send_file('public/images/zubaz-suit.jpg', :disposition => 'inline', :type => 'image/jpeg')
-    end
-  end
-
-  protected
-
-  def first_date
-    first_a_date = Activity.first_date_by_user(current_user.id)
-
-    if FitnessSample.find_all_by_user_id(current_user.id).length > 0
-      first_fs_date = FitnessSample.first_date_by_user(current_user.id)
-
-      first_date = first_a_date <= first_fs_date ? first_a_date : first_fs_date
-    else
-      first_date = first_a_date
-    end
-  end
-
-  def last_date
-    last_a_date = Activity.last_date_by_user(current_user.id)
-
-    if FitnessSample.find_all_by_user_id(current_user.id).length > 0
-      last_fs_date = FitnessSample.last_date_by_user(current_user.id)
-
-      last_date = last_a_date >= last_fs_date ? last_a_date : last_fs_date
-    else
-      last_date = last_a_date
-    end
-  end
-
 end
