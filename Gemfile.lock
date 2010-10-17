@@ -1,5 +1,6 @@
 GEM
   remote: http://rubygems.org/
+  remote: http://gems.github.com/
   specs:
     gruff (0.3.6)
     mislav-will_paginate (2.3.11)
