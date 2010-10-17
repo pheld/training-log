@@ -9,3 +9,4 @@ db/*.sqlite3
 public/images/bfp*
 public/images/weight*
 public/images/hours*
+.bundle

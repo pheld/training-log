@@ -1,0 +1,12 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    gruff (0.3.6)
+    mislav-will_paginate (2.3.11)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  gruff
+  mislav-will_paginate
