@@ -2,8 +2,6 @@ class IndexController < ApplicationController
 
   def index
     if logged_in?
-      # load stuff for the overview
-      @overview_graph = OverviewGraph.new(current_user)
       # get activities associated with the current user
       @activities = Activity.paginate_by_user_id current_user.id, :page => params[:activity_page], :per_page => Activity.per_page, :order => 'date DESC'
 
