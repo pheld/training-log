@@ -1,4 +1,7 @@
-<div id="header"><h1>Training Log Summary</h1></div>
+<head>
+  <title>Training Log</title>
+
+</head>
 
 <% if flash[:message] %>
   <div id="flash_message"><%= flash[:message] %></div>
@@ -7,22 +10,15 @@
 <div id="summary_col1">
 
   <div id="graph">
-    <!--  <div id="weight_graph_div" style="display:none;"> -->
-      <%#= image_tag(url_for(:controller => 'index', :action => 'graph_weight'), :style => "graph") %>
-      <%= image_tag(@overview_graph.bfp_graph_url, :style => "graph") %>
-    <!-- </div> -->
-  </div> <!-- end graph -->
+    <div id="weight-chart-container" style="width: 900px; height: 400px"></div>
+  </div>
 
   <div id="graph">
-    <!-- <div id="bfp_graph_div" style="display:none;"> -->
-      <%= image_tag(@overview_graph.weight_graph_url, :style => "graph") %>
-    <!--  </div> -->
-  </div> <!-- end graph -->
+    <div id="bodyfat-chart-container" style="width: 900px; height: 400px"></div>
+  </div>
 
   <div id="graph">
-    <!-- <div id="hours_graph_div" style="display:none;"> -->
-       <%= image_tag(@overview_graph.hours_graph_url, :style => "graph") %>
-    <!-- </div> -->
+    <div id="acitivityhours-chart-container" style="width: 900px; height: 400px"></div>
   </div> <!-- end graph -->
   
 </div> <!-- end col1 -->
@@ -95,3 +91,129 @@
     <%= link_to 'New Climb', :controller => 'climbs', :action => 'new' %> <br /><br />
   </div> <!-- end lNav -->
 </div> <!-- end col2 -->
+
+  <script type="text/javascript">
+      var chart1; // globally available
+      var fitnessSamplesUrl = "<%= url_for :action => 'user_samples', :controller => 'fitness_samples' %>/<%= current_user.id %>";
+      var activityHoursUrl = "<%= url_for :action => 'user_activity_hours', :controller => 'activities' %>/<%= current_user.id %>";
+
+      $J(document).ready(function() {
+          $J.ajax({
+              type: 'GET',
+              url: fitnessSamplesUrl,
+              success: function(response) {
+                  var weight_data = [];
+                  $J(response).each(function() {
+                      var point = $J(this)[0];
+
+                      weight_data.push([
+                              Date.UTC(point.year, point.month, point.day),
+                              point.weight_pounds
+                      ])
+                  });
+
+                  var bodyfat_data = [];
+                  $J(response).each(function() {
+                      var point = $J(this)[0];
+
+                      bodyfat_data.push([
+                              Date.UTC(point.year, point.month, point.day),
+                              point.body_fat_percentage
+                      ])
+                  });
+
+                  chart1 = new Highcharts.Chart({
+                      chart: {
+                          renderTo: 'weight-chart-container',
+                          defaultSeriesType: 'line'
+                      },
+                      title: {
+                          text: 'Weight'
+                      },
+                      xAxis: {
+                          type: 'datetime',
+                          title: {
+                              text: 'Date'
+                          },
+                      },
+                      yAxis: {
+                          title: {
+                              text: 'Weight (pounds)'
+                          }
+                      },
+                      series: [{
+                          name: 'Daily Samples',
+                          data: weight_data
+                      }]
+                  });
+
+                  chart2 = new Highcharts.Chart({
+                      chart: {
+                          renderTo: 'bodyfat-chart-container',
+                          defaultSeriesType: 'line'
+                      },
+                      title: {
+                          text: 'Body Fat Percentage'
+                      },
+                      xAxis: {
+                          type: 'datetime',
+                          title: {
+                              text: 'Date'
+                          },
+                      },
+                      yAxis: {
+                          title: {
+                              text: 'Body Fat Percentage'
+                          }
+                      },
+                      series: [{
+                          name: 'Daily Samples',
+                          data: bodyfat_data
+                      }]
+                  });
+
+              }
+          });
+
+          $J.ajax({
+              type: 'GET',
+              url: activityHoursUrl,
+              success: function(response) {
+                  var activity_hours_data = [];
+                  $J(response).each(function() {
+                      var point = $J(this)[0];
+
+                      activity_hours_data.push([
+                              Date.UTC(point.year, point.month, point.day),
+                              point.hours
+                      ])
+                  });
+
+                  chart3 = new Highcharts.Chart({
+                      chart: {
+                          renderTo: 'acitivityhours-chart-container',
+                          defaultSeriesType: 'line'
+                      },
+                      title: {
+                          text: 'Aerobic Hours'
+                      },
+                      xAxis: {
+                          type: 'datetime',
+                          title: {
+                              text: 'Date'
+                          },
+                      },
+                      yAxis: {
+                          title: {
+                              text: 'Hours'
+                          }
+                      },
+                      series: [{
+                          name: 'Daily Samples',
+                          data: activity_hours_data
+                      }]
+                  });
+              }
+          });
+      });
+  </script>

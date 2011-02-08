@@ -21,6 +21,28 @@ class FitnessSamplesController < ApplicationController
     end
   end
 
+  def user_samples
+    starting_date = Date.today - 1.year
+
+    @fitness_samples =
+        FitnessSample.find_by_sql("SELECT date, weight_pounds, body_fat_percentage FROM fitness_samples WHERE user_id=#{params[:id]} AND date > '#{starting_date.to_formatted_s}' ORDER BY date ASC")
+
+
+    @fitness_sample_summaries = @fitness_samples.map { |fs|
+      {
+          :year => fs.date.year,
+          :month => fs.date.month,
+          :day => fs.date.day,
+          :weight_pounds => fs.weight_pounds,
+          :body_fat_percentage => fs.body_fat_percentage
+      }
+    }
+
+    respond_to do |format|
+      format.json { render :json => @fitness_sample_summaries.to_json }
+    end
+  end
+
   # GET /fitness_samples/new
   # GET /fitness_samples/new.xml
   def new

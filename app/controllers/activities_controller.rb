@@ -21,6 +21,27 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def user_activity_hours
+    starting_date = Date.today - 1.year
+
+    @activities =
+        Activity.find_by_sql("SELECT date, duration_hours FROM activities WHERE user_id=#{params[:id]} AND date > '#{starting_date.to_formatted_s}' ORDER BY date ASC")
+
+
+    @activity_hours = @activities.map { |a|
+      {
+          :year => a.date.year,
+          :month => a.date.month,
+          :day => a.date.day,
+          :hours => a.duration_hours
+      }
+    }
+
+    respond_to do |format|
+      format.json { render :json => @activity_hours.to_json }
+    end
+  end
+
   # GET /activities/new
   # GET /activities/new.xml
   def new
