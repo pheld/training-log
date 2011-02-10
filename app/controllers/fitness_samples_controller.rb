@@ -61,8 +61,8 @@ class FitnessSamplesController < ApplicationController
         body_fat_sum = 0
 
         (i - samples - 1).upto(i) do |j|
-          weight_sum = weight_sum + sample.weight_pounds
-          body_fat_sum = body_fat_sum + sample.body_fat_percentage
+          weight_sum = weight_sum + @fitness_samples[j].weight_pounds
+          body_fat_sum = body_fat_sum + @fitness_samples[j].body_fat_percentage
         end
 
         @fitness_sample_averages << {
@@ -75,11 +75,11 @@ class FitnessSamplesController < ApplicationController
 
     @fitness_sample_summaries = @fitness_sample_averages.each { |fsa|
       {
-          :year => fsa.date.year,
-          :month => fsa.date.month - 1,
-          :month_day => fsa.date.mday,
-          :weight_pounds => fsa.weight_average,
-          :body_fat_percentage => fsa.body_fat_percentage_average
+          :year => fsa[:date].year,
+          :month => fsa[:date].month - 1,
+          :month_day => fsa[:date].mday,
+          :weight_pounds => fsa[:weight_average],
+          :body_fat_percentage => fsa[:body_fat_percentage_average]
       }
     }
 
