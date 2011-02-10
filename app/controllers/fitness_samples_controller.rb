@@ -60,7 +60,7 @@ class FitnessSamplesController < ApplicationController
         weight_sum = 0
         body_fat_sum = 0
 
-        (i - samples - 1).upto(i) do |j|
+        (i - (samples - 1)).upto(i) do |j|
           weight_sum = weight_sum + @fitness_samples[j].weight_pounds
           body_fat_sum = body_fat_sum + @fitness_samples[j].body_fat_percentage
         end
