@@ -31,8 +31,8 @@ class FitnessSamplesController < ApplicationController
     @fitness_sample_summaries = @fitness_samples.map { |fs|
       {
           :year => fs.date.year,
-          :month => fs.date.month,
-          :day => fs.date.day,
+          :month => fs.date.month - 1,
+          :month_day => fs.date.mday,
           :weight_pounds => fs.weight_pounds,
           :body_fat_percentage => fs.body_fat_percentage
       }

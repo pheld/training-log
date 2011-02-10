@@ -10,15 +10,15 @@
 <div id="summary_col1">
 
   <div id="graph">
-    <div id="weight-chart-container" style="width: 900px; height: 400px"></div>
+    <div id="weight-chart-container" style="width: 850px; height: 350px"></div>
   </div>
 
   <div id="graph">
-    <div id="bodyfat-chart-container" style="width: 900px; height: 400px"></div>
+    <div id="bodyfat-chart-container" style="width: 850px; height: 350px"></div>
   </div>
 
   <div id="graph">
-    <div id="acitivityhours-chart-container" style="width: 900px; height: 400px"></div>
+    <div id="acitivityhours-chart-container" style="width: 850px; height: 350px"></div>
   </div> <!-- end graph -->
   
 </div> <!-- end col1 -->
@@ -95,7 +95,7 @@
   <script type="text/javascript">
       var chart1; // globally available
       var fitnessSamplesUrl = "<%= url_for :action => 'user_samples', :controller => 'fitness_samples' %>/<%= current_user.id %>";
-      var activityHoursUrl = "<%= url_for :action => 'user_activity_hours', :controller => 'activities' %>/<%= current_user.id %>";
+      var activityHoursUrl = "<%= url_for :action => 'user_activity_weekly_hour_totals', :controller => 'activities' %>/<%= current_user.id %>";
 
       $J(document).ready(function() {
           $J.ajax({
@@ -107,7 +107,7 @@
                       var point = $J(this)[0];
 
                       weight_data.push([
-                              Date.UTC(point.year, point.month, point.day),
+                              Date.UTC(point.year, point.month, point.month_day),
                               point.weight_pounds
                       ])
                   });
@@ -117,7 +117,7 @@
                       var point = $J(this)[0];
 
                       bodyfat_data.push([
-                              Date.UTC(point.year, point.month, point.day),
+                              Date.UTC(point.year, point.month, point.month_day),
                               point.body_fat_percentage
                       ])
                   });
@@ -184,7 +184,7 @@
                       var point = $J(this)[0];
 
                       activity_hours_data.push([
-                              Date.UTC(point.year, point.month, point.day),
+                              Date.UTC(point.year, point.month, point.month_day),
                               point.hours
                       ])
                   });
@@ -209,7 +209,7 @@
                           }
                       },
                       series: [{
-                          name: 'Daily Samples',
+                          name: 'Weekly Total',
                           data: activity_hours_data
                       }]
                   });

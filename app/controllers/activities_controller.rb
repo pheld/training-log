@@ -31,8 +31,8 @@ class ActivitiesController < ApplicationController
     @activity_hours = @activities.map { |a|
       {
           :year => a.date.year,
-          :month => a.date.month,
-          :day => a.date.day,
+          :month => a.date.month - 1,
+          :month_day => a.date.mday,
           :hours => a.duration_hours
       }
     }
@@ -40,6 +40,43 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       format.json { render :json => @activity_hours.to_json }
     end
+  end
+
+  def user_activity_weekly_hour_totals
+    starting_date = Date.today - 1.year
+
+    @activities =
+        Activity.find_by_sql("SELECT date, duration_hours FROM activities WHERE user_id=#{params[:id]} AND date > '#{starting_date.to_formatted_s}' ORDER BY date ASC")
+
+    @week_hour_totals_hash = {}
+
+    @activities.each do |activity|
+      week_end_date = activity.date + (7 - activity.date.wday).days
+
+      if @week_hour_totals_hash[week_end_date] == nil
+        @week_hour_totals_hash[week_end_date] = activity.duration_hours
+      else
+        @week_hour_totals_hash[week_end_date] = @week_hour_totals_hash[week_end_date] +
+            activity.duration_hours
+      end
+    end
+
+    @activity_weekly_hour_totals = []
+
+    @week_hour_totals_hash.keys.each do |key|
+      @activity_weekly_hour_totals << {
+          :year => key.year,
+          :month => key.month - 1,
+          :month_day => key.mday,
+          :hours => @week_hour_totals_hash[key],
+          :date_string => key.inspect
+      }
+    end
+
+    respond_to do |format|
+      format.json { render :json => @activity_weekly_hour_totals.to_json }
+    end
+
   end
 
   # GET /activities/new
