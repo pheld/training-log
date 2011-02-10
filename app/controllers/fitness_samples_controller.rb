@@ -43,6 +43,51 @@ class FitnessSamplesController < ApplicationController
     end
   end
 
+  def user_samples_rolling_average
+    samples = params[:samples] || 7
+
+    starting_date = Date.today - 1.year
+
+    @fitness_samples =
+        FitnessSample.find_by_sql("SELECT date, weight_pounds, body_fat_percentage FROM fitness_samples WHERE user_id=#{params[:id]} AND date > '#{starting_date.to_formatted_s}' ORDER BY date ASC")
+
+    @fitness_sample_averages = []
+
+    if @fitness_samples.size >= samples
+      (samples - 1).upto(@fitness_samples.size - 1) do |i|
+        sample = @fitness_samples[i]
+
+        weight_sum = 0
+        body_fat_sum = 0
+
+        (i - samples - 1).upto(i) do |j|
+          weight_sum = weight_sum + sample.weight_pounds
+          body_fat_sum = body_fat_sum + sample.body_fat_percentage
+        end
+
+        @fitness_sample_averages << {
+            :date => sample.date,
+            :weight_average => weight_sum / samples,
+            :body_fat_percentage_average => body_fat_sum / samples
+        }
+      end
+    end
+
+    @fitness_sample_summaries = @fitness_sample_averages.each { |fsa|
+      {
+          :year => fsa.date.year,
+          :month => fsa.date.month - 1,
+          :month_day => fsa.date.mday,
+          :weight_pounds => fsa.weight_average,
+          :body_fat_percentage => fsa.body_fat_percentage_average
+      }
+    }
+
+    respond_to do |format|
+      format.json { render :json => @fitness_sample_summaries.to_json }
+    end
+  end
+
   # GET /fitness_samples/new
   # GET /fitness_samples/new.xml
   def new
