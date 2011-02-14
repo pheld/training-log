@@ -17,10 +17,6 @@
     <div id="bodyfat-chart-container" style="width: 850px; height: 350px"></div>
   </div>
 
-  <div id="graph">
-    <div id="acitivityhours-chart-container" style="width: 850px; height: 350px"></div>
-  </div> <!-- end graph -->
-  
 </div> <!-- end col1 -->
 
 <div id="summary_col2">
@@ -94,15 +90,18 @@
 
   <script type="text/javascript">
       var chart1; // globally available
-      var fitnessSamplesUrl = "<%= url_for :action => 'user_samples', :controller => 'fitness_samples' %>/<%= current_user.id %>";
+      var fitnessSamplesUrl = "<%= url_for :action => 'user_samples_rolling_average', :controller => 'fitness_samples' %>/<%= current_user.id %>";
       var activityHoursUrl = "<%= url_for :action => 'user_activity_weekly_hour_totals', :controller => 'activities' %>/<%= current_user.id %>";
+
+      var weight_data = [];
+      var bodyfat_data = [];
+      var activity_hours_data = [];
 
       $J(document).ready(function() {
           $J.ajax({
               type: 'GET',
               url: fitnessSamplesUrl,
               success: function(response) {
-                  var weight_data = [];
                   $J(response).each(function() {
                       var point = $J(this)[0];
 
@@ -112,7 +111,6 @@
                       ])
                   });
 
-                  var bodyfat_data = [];
                   $J(response).each(function() {
                       var point = $J(this)[0];
 
@@ -122,96 +120,95 @@
                       ])
                   });
 
-                  chart1 = new Highcharts.Chart({
-                      chart: {
-                          renderTo: 'weight-chart-container',
-                          defaultSeriesType: 'line'
-                      },
-                      title: {
-                          text: 'Weight'
-                      },
-                      xAxis: {
-                          type: 'datetime',
-                          title: {
-                              text: 'Date'
-                          },
-                      },
-                      yAxis: {
-                          title: {
-                              text: 'Weight (pounds)'
+                  $J.ajax({
+                      type: 'GET',
+                      url: activityHoursUrl,
+                      success: function(response) {
+                          $J(response).each(function() {
+                              var point = $J(this)[0];
+
+                              activity_hours_data.push([
+                                      Date.UTC(point.year, point.month, point.month_day),
+                                      point.hours
+                              ])
+                          });
+
+                          if ((weight_data.length > 0) && (activity_hours_data.length > 0)) {
+                              chart1 = new Highcharts.Chart({
+                                  chart: {
+                                      renderTo: 'weight-chart-container',
+                                      defaultSeriesType: 'line'
+                                  },
+                                  title: {
+                                      text: 'Weight'
+                                  },
+                                  xAxis: [{
+                                      type: 'datetime',
+                                      title: {
+                                          text: 'Date'
+                                      },
+                                  }],
+                                  yAxis: [{
+                                      title: {
+                                          text: 'Weight (pounds)'
+                                      }
+                                  }, {
+                                      title: {
+                                          text: 'Aerobic Hours per week'
+                                      },
+                                      opposite: true
+                                  }],
+                                  series: [{
+                                      yAxis: 0,
+                                      type: 'line',
+                                      name: 'Weight Moving Average (7 Samples)',
+                                      data: weight_data
+                                  }, {
+                                      yAxis: 1,
+                                      type: 'line',
+                                      name: 'Hours Weekly Total',
+                                      data: activity_hours_data
+                                  }]
+                              });
+
+                              chart2 = new Highcharts.Chart({
+                                  chart: {
+                                      renderTo: 'bodyfat-chart-container',
+                                      defaultSeriesType: 'line'
+                                  },
+                                  title: {
+                                      text: 'Body Fat Percentage'
+                                  },
+                                  xAxis: [{
+                                      type: 'datetime',
+                                      title: {
+                                          text: 'Date'
+                                      },
+                                  }],
+                                  yAxis: [{
+                                      title: {
+                                          text: 'Body Fat Percentage'
+                                      }
+                                  }, {
+                                      title: {
+                                          text: 'Aerobic Hours per week'
+                                      },
+                                      opposite: true
+                                  }],
+                                  series: [{
+                                      yAxis: 0,
+                                      type: 'line',
+                                      name: 'Body Fat % Moving Average (7 Samples)',
+                                      data: bodyfat_data
+                                  }, {
+                                      yAxis: 1,
+                                      type: 'line',
+                                      name: 'Hours Weekly Total',
+                                      data: activity_hours_data
+                                  }]
+                              });
                           }
-                      },
-                      series: [{
-                          name: 'Daily Samples',
-                          data: weight_data
-                      }]
-                  });
-
-                  chart2 = new Highcharts.Chart({
-                      chart: {
-                          renderTo: 'bodyfat-chart-container',
-                          defaultSeriesType: 'line'
-                      },
-                      title: {
-                          text: 'Body Fat Percentage'
-                      },
-                      xAxis: {
-                          type: 'datetime',
-                          title: {
-                              text: 'Date'
-                          },
-                      },
-                      yAxis: {
-                          title: {
-                              text: 'Body Fat Percentage'
-                          }
-                      },
-                      series: [{
-                          name: 'Daily Samples',
-                          data: bodyfat_data
-                      }]
-                  });
-
-              }
-          });
-
-          $J.ajax({
-              type: 'GET',
-              url: activityHoursUrl,
-              success: function(response) {
-                  var activity_hours_data = [];
-                  $J(response).each(function() {
-                      var point = $J(this)[0];
-
-                      activity_hours_data.push([
-                              Date.UTC(point.year, point.month, point.month_day),
-                              point.hours
-                      ])
-                  });
-
-                  chart3 = new Highcharts.Chart({
-                      chart: {
-                          renderTo: 'acitivityhours-chart-container',
-                          defaultSeriesType: 'line'
-                      },
-                      title: {
-                          text: 'Aerobic Hours'
-                      },
-                      xAxis: {
-                          type: 'datetime',
-                          title: {
-                              text: 'Date'
-                          },
-                      },
-                      yAxis: {
-                          title: {
-                              text: 'Hours'
-                          }
-                      },
-                      series: [{
-                          name: 'Weekly Total',
-                          data: activity_hours_data
-                      }]
+                      }
                   });
               }
           });

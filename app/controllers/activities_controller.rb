@@ -51,7 +51,7 @@ class ActivitiesController < ApplicationController
     @week_hour_totals_hash = {}
 
     @activities.each do |activity|
-      week_end_date = activity.date + (7 - activity.date.wday).days
+      week_end_date = (activity.date.wday == 0) ? activity.date : activity.date + (7 - activity.date.wday).days
 
       if @week_hour_totals_hash[week_end_date] == nil
         @week_hour_totals_hash[week_end_date] = activity.duration_hours

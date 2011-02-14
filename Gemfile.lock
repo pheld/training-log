@@ -12,7 +12,6 @@ GEM
     activeresource (2.3.8)
       activesupport (= 2.3.8)
     activesupport (2.3.8)
-    gruff (0.3.6)
     mislav-will_paginate (2.3.11)
     mysql (2.8.1)
     rack (1.1.0)
@@ -24,14 +23,11 @@ GEM
       activesupport (= 2.3.8)
       rake (>= 0.8.3)
     rake (0.8.7)
-    rmagick (2.12.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  gruff (= 0.3.6)
   mislav-will_paginate
   mysql (= 2.8.1)
   rails (= 2.3.8)
-  rmagick (= 2.12.2)

@@ -51,7 +51,7 @@ class FitnessSamplesController < ApplicationController
     @fitness_samples =
         FitnessSample.find_by_sql("SELECT date, weight_pounds, body_fat_percentage FROM fitness_samples WHERE user_id=#{params[:id]} AND date > '#{starting_date.to_formatted_s}' ORDER BY date ASC")
 
-    @fitness_sample_averages = []
+    @fitness_sample_averages_hash = {}
 
     if @fitness_samples.size >= samples
       (samples - 1).upto(@fitness_samples.size - 1) do |i|
@@ -65,23 +65,26 @@ class FitnessSamplesController < ApplicationController
           body_fat_sum = body_fat_sum + @fitness_samples[j].body_fat_percentage
         end
 
-        @fitness_sample_averages << {
-            :date => sample.date,
+        @fitness_sample_averages_hash[sample.date] = {
             :weight_average => weight_sum / samples,
             :body_fat_percentage_average => body_fat_sum / samples
         }
       end
     end
 
-    @fitness_sample_summaries = @fitness_sample_averages.each { |fsa|
-      {
-          :year => fsa[:date].year,
-          :month => fsa[:date].month - 1,
-          :month_day => fsa[:date].mday,
-          :weight_pounds => fsa[:weight_average],
-          :body_fat_percentage => fsa[:body_fat_percentage_average]
+    @fitness_sample_summaries = []
+
+    @fitness_sample_averages_hash.keys.each do |key|
+      average_point = @fitness_sample_averages_hash[key]
+
+      @fitness_sample_summaries << {
+          :year => key.year,
+          :month => key.month - 1,
+          :month_day => key.mday,
+          :weight_pounds => average_point[:weight_average],
+          :body_fat_percentage => average_point[:body_fat_percentage_average]
       }
-    }
+    end
 
     respond_to do |format|
       format.json { render :json => @fitness_sample_summaries.to_json }
