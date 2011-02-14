@@ -81,8 +81,8 @@ class FitnessSamplesController < ApplicationController
           :year => key.year,
           :month => key.month - 1,
           :month_day => key.mday,
-          :weight_pounds => average_point[:weight_average],
-          :body_fat_percentage => average_point[:body_fat_percentage_average]
+          :weight_pounds => sprintf("%.2f", average_point[:weight_average]),
+          :body_fat_percentage => sprintf("%.2f", average_point[:body_fat_percentage_average])
       }
     end
 
