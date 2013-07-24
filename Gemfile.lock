@@ -12,8 +12,19 @@ GEM
     activeresource (2.3.8)
       activesupport (= 2.3.8)
     activesupport (2.3.8)
+    addressable (2.2.7)
+    heroku (2.25.0)
+      launchy (>= 0.3.2)
+      netrc (~> 0.7.1)
+      rest-client (~> 1.6.1)
+      rubyzip
+    launchy (2.1.0)
+      addressable (~> 2.2.6)
+    mime-types (1.16)
     mislav-will_paginate (2.3.11)
-    mysql (2.8.1)
+    mysql2 (0.3.11)
+    netrc (0.7.1)
+    pg (0.13.2)
     rack (1.1.0)
     rails (2.3.8)
       actionmailer (= 2.3.8)
@@ -23,11 +34,16 @@ GEM
       activesupport (= 2.3.8)
       rake (>= 0.8.3)
     rake (0.8.7)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+    rubyzip (0.9.8)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  heroku
   mislav-will_paginate
-  mysql (= 2.8.1)
+  mysql2
+  pg
   rails (= 2.3.8)
